@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Photographie · Selma Omri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.gal-section{margin-bottom:72px}
+.gal-label{display:flex;align-items:center;gap:14px;margin-bottom:20px}
+.gal-label-line{flex:1;height:1px;background:var(--gborder)}
+.gal-label-text{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--p3);white-space:nowrap}
+.gal-count{font-size:9px;font-weight:600;letter-spacing:.1em;color:var(--muted)}
+
+/* Layout masonry  chaque photo à ses proportions naturelles */
+.gal-grid{columns:3;column-gap:10px}
+.gal-grid.wide{columns:4;column-gap:10px}
+.gal-img{
+  width:100%;height:auto;display:block;
+  border-radius:14px;border:1px solid var(--gborder);
+  margin-bottom:10px;break-inside:avoid;
+  transition:transform .5s var(--ease),box-shadow .4s;
+  cursor:pointer
+}
+.gal-img:hover{transform:scale(1.03);box-shadow:0 0 30px rgba(249,23,79,.25);position:relative;z-index:1}
+
+@media(max-width:900px){
+  .gal-grid{columns:2}
+  .gal-grid.wide{columns:2}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"><div id="cdot"></div><div id="cring"></div></div>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div><div class="orb o5"></div></div>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="index.html">Selma<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="index.html#about">À propos</a></li>
+    <li><a href="mailto:selmaomri05@gmail.com">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:selmaomri05@gmail.com">Me contacter</a>
+</nav>
+
+<!-- PROJECT PAGE -->
+<div class="proj-page">
+
+  <!-- HERO -->
+  <div class="proj-hero">
+    <div class="proj-hero-bg" style="background-image:url('photographie/concert/DSC04443.jpeg')"></div>
+    <div class="proj-hero-overlay"></div>
+    <a class="proj-back" href="index.html">◀◀ Retour</a>
+    <div class="proj-meta">
+      <p class="proj-cat-tag r">Photographie · Concert · Sport · Ville</p>
+      <h1 class="proj-title r d1"><span>Photo-<br>graphie</span></h1>
+      <p class="proj-subtitle r d2">Trois séries, trois contextes, une même intention : capturer ce qui se passe vraiment.</p>
+    </div>
+  </div>
+
+  <!-- INFO BAR -->
+  <div class="proj-info-bar">
+    <div class="proj-info-item r"><div class="pil">Type</div><div class="piv">Reportage & événementiel</div></div>
+    <div class="proj-info-item r d1"><div class="pil">Catégories</div><div class="piv">Concert · Sport · Ville</div></div>
+    <div class="proj-info-item r d2"><div class="pil">Matériel</div><div class="piv">Sony Alpha</div></div>
+    <div class="proj-info-item r d3"><div class="pil">Période</div><div class="piv">2023  2025</div></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="proj-content">
+
+    <div class="proj-section r">
+      <h2 class="proj-section-title">L'œil <span class="grad">derrière l'objectif</span></h2>
+      <p class="proj-text">Le sport et son intensité pure. La danse et ses mises en scène pour une artiste. Les concerts et leur énergie brute de scène. La photographie est pour moi un moyen de témoigner  figer un instant, une émotion, un mouvement avant qu'il disparaisse.</p>
+      <div class="proj-tags">
+        <span class="ptag">Reportage</span>
+        <span class="ptag">Sport</span>
+        <span class="ptag">Concert</span>
+        <span class="ptag">Urbain</span>
+        <span class="ptag">Événementiel</span>
+      </div>
+    </div>
+
+    <!-- CONCERT -->
+    <div class="gal-section r">
+      <div class="gal-label">
+        <span class="gal-label-text">Concert</span>
+        <span class="gal-count">10 photos</span>
+        <div class="gal-label-line"></div>
+      </div>
+      <div class="gal-grid">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04147.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04260.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04281.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04404.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04431.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04443.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04447.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04465.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/DSC04521.jpeg" alt="Concert" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/concert/IMG_2060.jpeg" alt="Concert" loading="lazy">
+      </div>
+    </div>
+
+    <!-- SPORT -->
+    <div class="gal-section r">
+      <div class="gal-label">
+        <span class="gal-label-text">Sport  SCAAB</span>
+        <span class="gal-count">14 photos</span>
+        <div class="gal-label-line"></div>
+      </div>
+      <div class="gal-grid wide">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_2765.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_2785.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_2788.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_2815.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_2890.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_2898.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_3111.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_3204.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_3356.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_3440.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_3466.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_3582.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_3599.jpg" alt="Sport SCAAB" loading="lazy">
+        <img class="gal-img" src="photographie/sport - scaab/DSC_3673.jpg" alt="Sport SCAAB" loading="lazy">
+      </div>
+    </div>
+
+    <!-- VILLE -->
+    <div class="gal-section r">
+      <div class="gal-label">
+        <span class="gal-label-text">Ville</span>
+        <span class="gal-count">9 photos</span>
+        <div class="gal-label-line"></div>
+      </div>
+      <div class="gal-grid">
+        <img class="gal-img gal-feat" src="photographie/ville/DSC01869.jpeg" alt="Ville" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/ville/DSC02036.jpeg" alt="Ville" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/ville/DSC02512.jpeg" alt="Ville" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/ville/DSC02516.jpeg" alt="Ville" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/ville/DSC02576.jpeg" alt="Ville" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/ville/DSC02994.jpeg" alt="Ville" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/ville/DSC03003.jpeg" alt="Ville" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/ville/DSC03162.jpeg" alt="Ville" loading="lazy">
+        <img class="gal-img gal-feat" src="photographie/ville/IMG_1295.jpeg" alt="Ville" loading="lazy">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a class="proj-next r" href="scbvg.html">
+    <div>
+      <div class="proj-next-l">Projet suivant</div>
+      <div class="proj-next-t">Saint-Chamond Basket</div>
+    </div>
+    <div class="proj-next-arr">▶▶</div>
+  </a>
+
+</div>
+
+<footer>
+  <span>Selma Omri</span>
+  <span>Design Digital & Communication  2025</span>
+  <span>France</span>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
+
+

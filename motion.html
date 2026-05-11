@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Motion Design · Selma Omri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.vid-card{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--gborder);background:#07050d;transition:border-color .3s,box-shadow .3s,transform .3s var(--ease);margin-bottom:14px}
+.vid-card:hover{border-color:rgba(255,111,168,.45);box-shadow:0 0 50px rgba(249,23,79,.18);transform:translateY(-4px)}
+.vid-card video{display:block;max-height:380px;width:auto;max-width:100%;margin:0 auto;object-fit:contain}
+.vid-card-label{padding:20px 24px;border-top:1px solid var(--gborder)}
+.vid-card-cat{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--p3);margin-bottom:6px}
+.vid-card-name{font-size:17px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
+.vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+@media(max-width:900px){.vid-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<div id="cur"><div id="cdot"></div><div id="cring"></div></div>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div><div class="orb o5"></div></div>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="index.html">Selma<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="index.html#about">À propos</a></li>
+    <li><a href="mailto:selmaomri05@gmail.com">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:selmaomri05@gmail.com">Me contacter</a>
+</nav>
+
+<div class="proj-page">
+
+  <div class="proj-hero" style="background:#07050d">
+    <div class="proj-hero-overlay" style="background:linear-gradient(to top,rgba(6,4,10,1) 0%,rgba(6,4,10,.3) 100%)"></div>
+    <a class="proj-back" href="index.html">◀◀ Retour</a>
+    <div class="proj-meta">
+      <p class="proj-cat-tag r">Motion · Animation · Vidéo</p>
+      <h1 class="proj-title r d1"><span>Motion<br>Design</span></h1>
+      <p class="proj-subtitle r d2">Animations de logo, motion graphics  donner du rythme et de la vie aux identités visuelles.</p>
+    </div>
+  </div>
+
+  <div class="proj-info-bar">
+    <div class="proj-info-item r"><div class="pil">Type</div><div class="piv">Motion & vidéo</div></div>
+    <div class="proj-info-item r d1"><div class="pil">Domaine</div><div class="piv">Animation</div></div>
+    <div class="proj-info-item r d2"><div class="pil">Outils</div><div class="piv">After Effects, Premiere</div></div>
+    <div class="proj-info-item r d3"><div class="pil">Période</div><div class="piv">2023  2025</div></div>
+  </div>
+
+  <div class="proj-content">
+
+    <div class="proj-section r">
+      <h2 class="proj-section-title">Le <span class="grad">mouvement</span></h2>
+      <p class="proj-text">Une animation pour la mairie de Saint-Chamond  rythme, lisibilité, clarté institutionnelle. Une animation de logo pour Lilie Fitness, une cliente coach sportive  énergie, dynamisme, identité en mouvement. Et une création autour du parfum Scandal de Jean Paul Gaultier  audace et esthétique affirmée. Ces projets m'ont appris à penser le mouvement comme un langage à part entière.</p>
+      <div class="proj-tags">
+        <span class="ptag">After Effects</span>
+        <span class="ptag">Motion graphics</span>
+        <span class="ptag">Animation logo</span>
+        <span class="ptag">Client work</span>
+        <span class="ptag">Reels</span>
+      </div>
+    </div>
+
+    <div class="vid-card r r-scale">
+      <video autoplay loop muted playsinline>
+        <source src="motion/logomotiondesign.mp4" type="video/mp4">
+      </video>
+      <div class="vid-card-label">
+        <p class="vid-card-cat">Motion Design · Animation</p>
+        <p class="vid-card-name">Logo Motion Design</p>
+      </div>
+    </div>
+
+    <div class="vid-grid r">
+      <div class="vid-card">
+        <video autoplay loop muted playsinline>
+          <source src="motion/scandal.mp4" type="video/mp4">
+        </video>
+        <div class="vid-card-label">
+          <p class="vid-card-cat">Animation · Branding</p>
+          <p class="vid-card-name">Projet fictif : Scandal</p>
+        </div>
+      </div>
+      <div class="vid-card">
+        <video autoplay loop muted playsinline>
+          <source src="motion/pouchlogoanimation.mp4" type="video/mp4">
+        </video>
+        <div class="vid-card-label">
+          <p class="vid-card-cat">Branding · Animation</p>
+          <p class="vid-card-name">POUCH  Logo Animation</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="vid-card r r-scale">
+      <video autoplay loop muted playsinline>
+        <source src="motion/logoanimation fond blanc.mp4" type="video/mp4">
+      </video>
+      <div class="vid-card-label">
+        <p class="vid-card-cat">Branding · Client · Coaching sportif</p>
+        <p class="vid-card-name">Lilie Fitness  Animation logo</p>
+      </div>
+    </div>
+
+  </div>
+
+  <a class="proj-next r" href="audiovisuel.html">
+    <div>
+      <div class="proj-next-l">Projet suivant</div>
+      <div class="proj-next-t">Audiovisuel</div>
+    </div>
+    <div class="proj-next-arr">▶▶</div>
+  </a>
+
+</div>
+
+<footer>
+  <span>Selma Omri</span>
+  <span>Design Digital & Communication  2025</span>
+  <span>France</span>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
+
+

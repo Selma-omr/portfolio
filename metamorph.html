@@ -1,0 +1,362 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Métamorph · Selma Omri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.vid-block{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--gborder);background:#000;margin-bottom:14px}
+.vid-block video{width:100%;display:block;max-height:560px;object-fit:cover}
+.screen-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.screen-img{width:100%;border-radius:16px;border:1px solid var(--gborder);object-fit:cover;aspect-ratio:16/10;display:block;transition:transform .5s var(--ease)}
+.screen-img:hover{transform:scale(1.03)}
+@media(max-width:900px){.screen-grid{grid-template-columns:1fr}}
+
+/* ══ FLIPBOOK ══ */
+.fb-wrap{position:relative;border-radius:22px;overflow:hidden;border:1px solid var(--gborder);background:#06040b;margin-bottom:60px;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.fb-outer{width:100%;height:520px;display:flex;align-items:center;justify-content:center;background:#06040b;perspective:2200px}
+.fb-book{
+  position:relative;display:flex;height:95%;
+  width:96%;max-width:740px;
+  border-radius:3px;overflow:visible;
+  box-shadow:0 10px 50px rgba(0,0,0,.8);
+  transform-style:preserve-3d
+}
+/* Spine shadow */
+.fb-book::after{content:'';position:absolute;left:50%;top:0;bottom:0;width:4px;transform:translateX(-50%);background:linear-gradient(to right,rgba(0,0,0,.5),rgba(255,255,255,.04) 40%,rgba(255,255,255,.04) 60%,rgba(0,0,0,.5));z-index:8;pointer-events:none}
+/* Pages */
+.fb-side{flex:1;position:relative;overflow:hidden;background:#110e1a}
+.fb-side-l{box-shadow:inset -10px 0 20px rgba(0,0,0,.4);border-radius:3px 0 0 3px}
+.fb-side-r{box-shadow:inset 10px 0 20px rgba(0,0,0,.4);border-radius:0 3px 3px 0}
+.fb-side canvas{position:absolute;inset:0;width:auto;height:100%;max-width:100%;display:block;margin:0 auto}
+/* Turning page */
+.fb-turn{position:absolute;top:0;height:100%;width:50%;transform-style:preserve-3d;z-index:10;display:none}
+.fb-turn.on{display:block}
+.fb-turn.fwd{left:50%;transform-origin:left center}
+.fb-turn.bwd{left:0;transform-origin:right center}
+.fb-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:#110e1a}
+.fb-face-back{transform:rotateY(180deg)}
+.fb-face canvas{position:absolute;inset:0;width:auto;height:100%;max-width:100%;display:block;margin:0 auto}
+/* Flip shadow */
+.fb-face-front::after{content:'';position:absolute;inset:0;pointer-events:none;opacity:0}
+.fb-turn.fwd .fb-face-front::after{background:linear-gradient(to left,rgba(0,0,0,.55),transparent 70%)}
+.fb-turn.bwd .fb-face-front::after{background:linear-gradient(to right,rgba(0,0,0,.55),transparent 70%)}
+.fb-turn.flipping .fb-face-front::after{animation:fbShad var(--fd,700ms) ease-in-out forwards}
+@keyframes fbShad{0%{opacity:0}45%{opacity:1}100%{opacity:0}}
+/* Nav */
+.fb-nav{display:flex;align-items:center;justify-content:space-between;padding:13px 24px;border-top:1px solid var(--gborder);background:rgba(6,4,11,.96);backdrop-filter:blur(10px)}
+.fb-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gb);border:1px solid var(--gborder);border-radius:100px;padding:8px 20px;color:var(--white);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:border-color .2s,background .2s,color .2s;font-family:inherit}
+.fb-btn:hover:not(:disabled){border-color:var(--p3);background:var(--ghover);color:var(--p3)}
+.fb-btn:disabled{opacity:.2;cursor:default}
+.fb-info{display:flex;flex-direction:column;align-items:center;gap:8px}
+.fb-count{font-size:10px;font-weight:700;letter-spacing:.14em;color:var(--muted);text-transform:uppercase}
+.fb-dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:240px}
+.fb-dot{width:6px;height:6px;border-radius:50%;background:var(--gborder);cursor:pointer;transition:background .25s,transform .25s;flex-shrink:0}
+.fb-dot.on{background:var(--p3);transform:scale(1.5)}
+.fb-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:var(--muted);font-size:12px;font-weight:600;letter-spacing:.08em;background:#06040b;z-index:20;border-radius:22px 22px 0 0}
+.fb-spinner{width:28px;height:28px;border:2px solid var(--gborder);border-top-color:var(--p3);border-radius:50%;animation:fbspin .7s linear infinite}
+@keyframes fbspin{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+
+<div id="cur"><div id="cdot"></div><div id="cring"></div></div>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div><div class="orb o5"></div></div>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="index.html">Selma<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="index.html#about">À propos</a></li>
+    <li><a href="mailto:selmaomri05@gmail.com">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:selmaomri05@gmail.com">Me contacter</a>
+</nav>
+
+<!-- PROJECT PAGE -->
+<div class="proj-page">
+
+  <!-- HERO -->
+  <div class="proj-hero">
+    <div class="proj-hero-bg" style="background-image:url('métaphor/ban.jpg')"></div>
+    <div class="proj-hero-overlay"></div>
+    <a class="proj-back" href="index.html">◀◀ Retour</a>
+    <div class="proj-meta">
+      <p class="proj-cat-tag r">Projet · Web Design · Identité visuelle</p>
+      <h1 class="proj-title r d1"><span>Méta-<br>morph</span></h1>
+      <p class="proj-subtitle r d2">Une exposition d'histoire de l'art autour de l'autoportrait  dossier de presse, identité visuelle et site web de musée.</p>
+    </div>
+  </div>
+
+  <!-- INFO BAR -->
+  <div class="proj-info-bar">
+    <div class="proj-info-item r"><div class="pil">Type</div><div class="piv">Projet personnel</div></div>
+    <div class="proj-info-item r d1"><div class="pil">Domaine</div><div class="piv">Web Design & Branding</div></div>
+    <div class="proj-info-item r d2"><div class="pil">Outils</div><div class="piv">Figma, Illustrator, HTML/CSS</div></div>
+    <div class="proj-info-item r d3"><div class="pil">Année</div><div class="piv">2025</div></div>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="proj-content">
+
+    <!-- FLIPBOOK -->
+    <div class="fb-wrap r r-scale">
+      <div class="fb-outer">
+        <div class="fb-book" id="fbBook">
+          <div class="fb-loading" id="fbLoading"><div class="fb-spinner"></div><span>Chargement…</span></div>
+          <div class="fb-side fb-side-l" id="fbSL"><canvas id="fbCL"></canvas></div>
+          <div class="fb-side fb-side-r" id="fbSR"><canvas id="fbCR"></canvas></div>
+          <div class="fb-turn" id="fbTurn">
+            <div class="fb-face fb-face-front"><canvas id="fbCF"></canvas></div>
+            <div class="fb-face fb-face-back"><canvas id="fbCB"></canvas></div>
+          </div>
+        </div>
+      </div>
+      <div class="fb-nav">
+        <button class="fb-btn" id="fbPrev" disabled>◀◀ Préc.</button>
+        <div class="fb-info">
+          <span class="fb-count" id="fbCount">— / </span>
+          <div class="fb-dots" id="fbDots"></div>
+        </div>
+        <button class="fb-btn" id="fbNext" disabled>Suiv. ▶▶</button>
+      </div>
+    </div>
+
+    <div class="proj-section r">
+      <h2 class="proj-section-title">Se dire, <span class="grad">se tordre</span></h2>
+      <p class="proj-text">Parti d'une série d'autoportraits, ce projet a abouti à la conception d'une exposition fictive : Métamorphe. Trois artistes, trois gestes  Bacon qui se cache, Mapplethorpe qui se floute, ORLAN qui se revendique. Autour de cette exposition : un dossier de presse complet, une identité visuelle forte, et un site web pensé dans la posture du musée qui l'accueille.</p>
+      <div class="proj-tags">
+        <span class="ptag">Histoire de l'art</span>
+        <span class="ptag">Dossier de presse</span>
+        <span class="ptag">Identité visuelle</span>
+        <span class="ptag">Web Design</span>
+        <span class="ptag">Direction artistique</span>
+      </div>
+    </div>
+
+    <!-- Affiche & identité -->
+    <div class="proj-grid2 r r-scale">
+      <img class="proj-img-sm" src="métaphor/affiche.png" alt="Affiche Métamorph" style="aspect-ratio:3/4">
+      <img class="proj-img-sm" src="métaphor/identite.png" alt="Identité graphique" style="aspect-ratio:3/4">
+    </div>
+
+    <div class="proj-section r">
+      <h2 class="proj-section-title">Le <span class="grad">site web</span></h2>
+      <p class="proj-text">Interface conçue pour plonger l'utilisateur dans l'univers Métamorphe. Navigation fluide, hiérarchie visuelle forte, et une direction artistique cohérente du hero jusqu'aux pages de contenu.</p>
+    </div>
+
+    <!-- Video -->
+    <div class="vid-block r r-scale">
+      <video autoplay loop muted playsinline>
+        <source src="métaphor/accueil.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <!-- Screenshots restants -->
+    <div class="proj-grid2 r">
+      <img class="proj-img-sm" src="métaphor/accueil.png" alt="Page d'accueil" loading="lazy">
+      <img class="proj-img-sm" src="métaphor/infos.png" alt="Page infos" loading="lazy">
+    </div>
+
+    <!-- Screenshots screen1/2/3 -->
+    <div class="screen-grid r">
+      <img class="screen-img" src="métaphor/screen1.jpeg" alt="Interface" loading="lazy" style="aspect-ratio:unset;height:auto;object-fit:unset">
+      <img class="screen-img" src="métaphor/screen2.jpeg" alt="Interface détail" loading="lazy" style="aspect-ratio:unset;height:auto;object-fit:unset">
+      <img class="screen-img" src="métaphor/screen3.jpeg" alt="Interface détail" loading="lazy" style="aspect-ratio:unset;height:auto;object-fit:unset">
+    </div>
+
+  </div>
+
+  <!-- NEXT PROJECT -->
+  <a class="proj-next r" href="motion.html">
+    <div>
+      <div class="proj-next-l">Projet suivant</div>
+      <div class="proj-next-t">Motion Design</div>
+    </div>
+    <div class="proj-next-arr">▶▶</div>
+  </a>
+
+</div>
+
+<footer>
+  <span>Selma Omri</span>
+  <span>Design Digital & Communication  2025</span>
+  <span>France</span>
+</footer>
+
+<script src="shared.js"></script>
+<script>
+// ══ FLIPBOOK  page turn 3D ══
+(function(){
+  var PDFJS  = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';
+  var WORKER = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+  var FD = 680; // durée flip ms
+
+  var fbBook  = document.getElementById('fbBook');
+  var fbSL    = document.getElementById('fbSL');
+  var fbSR    = document.getElementById('fbSR');
+  var fbCL    = document.getElementById('fbCL');
+  var fbCR    = document.getElementById('fbCR');
+  var fbTurn  = document.getElementById('fbTurn');
+  var fbCF    = document.getElementById('fbCF');
+  var fbCB    = document.getElementById('fbCB');
+  var fbLoad  = document.getElementById('fbLoading');
+  var fbCount = document.getElementById('fbCount');
+  var fbDots  = document.getElementById('fbDots');
+  var fbPrev  = document.getElementById('fbPrev');
+  var fbNext  = document.getElementById('fbNext');
+  if(!fbBook) return;
+
+  var rp=[]; // canvases des pages rendues
+  var total=0, cur=0, maxS=0, busy=false;
+
+  // Spread 0 = couverture (page 1 à droite seule)
+  // Spread k≥1 : gauche=2k, droite=2k+1
+  function sL(s){ return s===0?null:2*s; }
+  function sR(s){ var r=s===0?1:2*s+1; return r<=total?r:null; }
+
+  function draw(pNum,c){
+    if(!pNum||pNum<1||pNum>rp.length){ c.style.visibility='hidden'; return; }
+    c.style.visibility='visible';
+    var src=rp[pNum-1];
+    c.width=src.width; c.height=src.height;
+    c.getContext('2d').drawImage(src,0,0);
+  }
+
+  function showSpread(s){
+    draw(sL(s),fbCL);
+    draw(sR(s),fbCR);
+    fbSL.style.visibility = s===0 ? 'hidden' : 'visible';
+  }
+
+  function flip(dir){
+    if(busy) return;
+    var next=cur+dir;
+    if(next<0||next>maxS) return;
+    busy=true;
+
+    // 1. Préparer les pages
+    if(dir===1){
+      draw(sR(next), fbCR); // nouvelle droite révélée sous la page qui tourne
+      draw(sR(cur),  fbCF); // face avant  = page droite actuelle
+      draw(sL(next), fbCB); // face arrière = nouvelle page gauche
+      fbSL.style.visibility = 'visible';
+    } else {
+      draw(sL(next), fbCL); // nouvelle gauche révélée
+      draw(sL(cur),  fbCF); // face avant  = page gauche actuelle
+      draw(sR(next), fbCB); // face arrière = ancienne page droite
+      fbSL.style.visibility = next===0 ? 'hidden' : 'visible';
+    }
+
+    // 2. Reset complet du turner (efface TOUT style inline + classes)
+    fbTurn.removeAttribute('style');
+    fbTurn.className = 'fb-turn ' + (dir===1 ? 'fwd' : 'bwd');
+
+    // 3. Positionner sans transition
+    fbTurn.style.display    = 'block';
+    fbTurn.style.transition = 'none';
+    fbTurn.style.transform  = 'rotateY(0deg)';
+
+    // 4. Force reflow ▶▶ le navigateur applique l'état 0°
+    void fbTurn.offsetWidth;
+
+    // 5. Activer ombre + transition
+    fbTurn.classList.add('flipping');
+    fbTurn.style.setProperty('--fd', FD+'ms');
+    fbTurn.style.transition = 'transform '+FD+'ms cubic-bezier(0.645,0.045,0.355,1)';
+
+    // 6. Lancer le flip au prochain frame (double rAF pour garantir le paint)
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        fbTurn.style.transform = dir===1 ? 'rotateY(-180deg)' : 'rotateY(180deg)';
+      });
+    });
+
+    // 7. Après le flip : état final
+    setTimeout(function(){
+      cur = next;
+      // Cacher le turner proprement via style inline seulement
+      fbTurn.removeAttribute('style');
+      fbTurn.style.display = 'none';
+      fbTurn.className = 'fb-turn';
+      showSpread(cur);
+      updateUI();
+      busy = false;
+    }, FD + 40);
+  }
+
+  function updateUI(){
+    var label = cur===0
+      ? 'Couverture · 1 / '+total
+      : 'Pages '+(2*cur)+'–'+Math.min(2*cur+1,total)+' / '+total;
+    fbCount.textContent = label;
+    fbPrev.disabled = (cur===0);
+    fbNext.disabled = (cur===maxS);
+    fbDots.querySelectorAll('.fb-dot').forEach(function(d,i){
+      d.classList.toggle('on', i===cur);
+    });
+  }
+
+  fbPrev.onclick = function(){ flip(-1); };
+  fbNext.onclick = function(){ flip(1); };
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight') flip(1);
+    if(e.key==='ArrowLeft')  flip(-1);
+  });
+
+  var sc=document.createElement('script');
+  sc.src=PDFJS;
+  sc.onload=async function(){
+    pdfjsLib.GlobalWorkerOptions.workerSrc=WORKER;
+    var pdf;
+    try{ pdf=await pdfjsLib.getDocument('img/2.pdf').promise; }
+    catch(e){
+      fbLoad.innerHTML='<span style="color:var(--p3);text-align:center;padding:20px;display:block">Erreur  ouvre via Live Server.</span>';
+      return;
+    }
+    total=pdf.numPages; // 13
+    maxS=Math.floor(total/2); // 6
+
+    // Points : un par spread (0..maxS)
+    for(var i=0;i<=maxS;i++){
+      var d=document.createElement('div');
+      d.className='fb-dot'+(i===0?' on':'');
+      (function(idx){
+        d.onclick=function(){
+          if(idx===cur||busy) return;
+          // Saut direct sans animation
+          cur=idx; showSpread(cur); updateUI();
+        };
+      })(i);
+      fbDots.appendChild(d);
+    }
+
+    // Rendu des pages
+    var scale=window.devicePixelRatio>1?2:1.5;
+    for(var p=1;p<=total;p++){
+      var page=await pdf.getPage(p);
+      var pv=page.getViewport({scale:scale});
+      var cv=document.createElement('canvas');
+      cv.width=pv.width; cv.height=pv.height;
+      await page.render({canvasContext:cv.getContext('2d'),viewport:pv}).promise;
+      rp.push(cv);
+      if(p===1){
+        fbLoad.remove();
+        showSpread(0);
+        updateUI();
+        fbNext.disabled=false;
+      }
+    }
+  };
+  document.head.appendChild(sc);
+})();
+</script>
+</body>
+</html>
+
+

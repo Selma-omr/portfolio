@@ -1,0 +1,998 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Selma Omri  Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://use.typekit.net/puq7mjp.css">
+<link rel="stylesheet" href="styles.css">
+<style>
+/* ══ STAR GLOWS ══ */
+@keyframes sgFloat1{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(12px,-18px) rotate(6deg)}66%{transform:translate(-8px,10px) rotate(-4deg)}}
+@keyframes sgFloat2{0%,100%{transform:translate(0,0) rotate(0deg)}40%{transform:translate(-14px,12px) rotate(-7deg)}75%{transform:translate(10px,-8px) rotate(5deg)}}
+@keyframes sgFloat3{0%,100%{transform:translate(0,0) rotate(0deg)}30%{transform:translate(8px,14px) rotate(8deg)}70%{transform:translate(-10px,-6px) rotate(-5deg)}}
+.star-glows{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden;max-width:100vw}
+.sg{
+  position:absolute;
+  background:url('img/portfoliobackground.png') center/contain no-repeat;
+  mix-blend-mode:screen;
+  filter:blur(10px);
+  opacity:.55;
+}
+.sg1{width:380px;height:380px;top:-6%;right:4%;opacity:.8;filter:blur(6px);animation:sgFloat1 9s ease-in-out infinite}
+.sg2{width:280px;height:280px;top:58%;left:-2%;filter:blur(5px);opacity:.7;animation:sgFloat2 12s ease-in-out infinite}
+.sg3{width:240px;height:240px;bottom:12%;right:8%;filter:blur(7px);opacity:.65;animation:sgFloat3 10s ease-in-out infinite}
+
+/* ══ XP BADGE ══ */
+.xp-badge{display:inline-block;font-size:8px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p3);background:rgba(249,23,79,.12);border:1px solid rgba(249,23,79,.25);border-radius:100px;padding:2px 8px;margin-right:10px;flex-shrink:0}
+
+/* ══ PARTICLES ══ */
+@keyframes particleDrift{
+  0%{transform:translate(0,0) scale(1);opacity:.1}
+  50%{opacity:.5}
+  100%{transform:translate(calc((var(--rx,1) - .5)*60px),calc((var(--ry,1) - .5)*60px)) scale(1.4);opacity:.15}
+}
+
+/* ══ HERO ══ */
+#hero{
+  min-height:100vh;display:grid;grid-template-columns:1fr 1fr;
+  align-items:center;gap:60px;
+  padding:100px 80px 60px;overflow:hidden;position:relative;z-index:1
+}
+.hero-left{display:flex;flex-direction:column;align-items:flex-start}
+.hero-right{display:flex;justify-content:flex-end;align-items:center}
+.hero-video-wrap{
+  position:relative;width:100%;max-width:520px;
+  animation:floatA 9s ease-in-out infinite;
+  -webkit-mask-image:radial-gradient(ellipse 65% 65% at 50% 50%, black 30%, transparent 68%);
+  mask-image:radial-gradient(ellipse 65% 65% at 50% 50%, black 30%, transparent 68%);
+}
+.hero-video-wrap video{width:100%;display:block;}
+.hero-chip{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--gb);border:1px solid var(--gborder);
+  backdrop-filter:var(--blur);padding:6px 18px 6px 10px;border-radius:100px;
+  font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p3);
+  margin-bottom:36px;animation:fadeUp .8s ease both
+}
+.chip-dot{width:6px;height:6px;background:var(--p3);border-radius:50%;animation:blink 2s infinite}
+.hero-title{font-size:clamp(34px,4.8vw,68px);font-weight:900;line-height:.9;letter-spacing:-.04em;margin-bottom:8px}
+.hl1{display:block;font-weight:200;font-style:italic;color:var(--muted);animation:fadeUp .8s .08s ease both}
+.hl2{
+  display:block;
+  font-family:"filmotype-yukon",sans-serif;
+  font-size:clamp(58px,8.5vw,115px);
+  font-weight:400;
+  letter-spacing:.06em;
+  margin:-0.18em 0;
+  position:relative;z-index:2;
+  line-height:1;
+  background:linear-gradient(135deg,var(--p3) 0%,var(--p1) 45%,var(--p2) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:fadeUp .8s .18s ease both
+}
+.hl3{display:block;font-weight:200;font-style:italic;color:var(--muted);animation:fadeUp .8s .28s ease both}
+.hero-sub{max-width:460px;font-size:13px;font-weight:300;line-height:1.75;color:var(--muted);margin:20px 0 32px;animation:fadeUp .8s .4s ease both}
+.hero-btns{display:flex;gap:14px;align-items:center;animation:fadeUp .8s .52s ease both}
+.hero-stats{display:flex;flex-direction:row;gap:10px;margin-top:24px;animation:fadeUp .8s .6s ease both}
+.stat{background:var(--gb);border:1px solid var(--gborder);backdrop-filter:var(--blur);-webkit-backdrop-filter:var(--blur);padding:18px 28px;border-radius:20px;text-align:center;min-width:130px}
+.stat-n{font-size:30px;font-weight:900;letter-spacing:-.03em}
+.stat-n em{font-style:normal;font-size:17px;color:var(--p3)}
+.stat-l{font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+.hero-shape{position:absolute;pointer-events:none;border-radius:50%;border:1px solid rgba(255,111,168,.12)}
+.hs1{width:500px;height:500px;top:-80px;right:5%;animation:floatA 8s ease-in-out infinite}
+.hs2{width:300px;height:300px;top:15%;right:22%;animation:floatB 10s ease-in-out infinite;animation-delay:-3s;border-color:rgba(255,111,168,.07)}
+.hs3{width:150px;height:150px;bottom:15%;right:10%;animation:floatA 6s ease-in-out infinite;animation-delay:-5s}
+
+/* ══ MARQUEE ══ */
+.mq-wrap{position:relative;z-index:1;overflow:hidden;padding:16px 0;border-top:1px solid var(--gborder);border-bottom:1px solid var(--gborder);background:rgba(255,255,255,.015);backdrop-filter:blur(8px)}
+.mq-track{display:flex;gap:0;width:max-content;animation:mq 22s linear infinite}
+.mq-wrap:hover .mq-track{animation-play-state:paused}
+.mq-item{display:inline-flex;align-items:center;gap:18px;padding:0 22px;font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+.mdot{width:3px;height:3px;background:var(--p3);border-radius:50%}
+
+/* ══ CD SCROLL ══ */
+.vinyl-s{position:relative;z-index:1;padding:52px 0;overflow:hidden;border-top:1px solid var(--gborder);border-bottom:1px solid var(--gborder)}
+.vinyl-row{overflow:hidden}
+.vinyl-track{display:flex;gap:44px;width:max-content;animation:vinylScroll 28s linear infinite;will-change:transform}
+.vinyl-row:hover .vinyl-track{animation-play-state:paused}
+@keyframes vinylScroll{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+/* CD item — tilt 3D */
+.vinyl-item{
+  position:relative;width:178px;height:178px;border-radius:50%;flex-shrink:0;cursor:pointer;
+  transform:perspective(420px) rotateX(18deg) rotateY(-32deg);
+  transition:transform .5s cubic-bezier(.2,1,.3,1),box-shadow .4s;
+  box-shadow:
+    -18px 22px 55px rgba(0,0,0,.9),
+    -4px 0px 0px rgba(255,255,255,.08),
+    0 0 30px rgba(220,0,130,.15);
+}
+.vinyl-item:hover{
+  transform:perspective(420px) rotateX(6deg) rotateY(-14deg) scale(1.1);
+  box-shadow:-6px 12px 60px rgba(0,0,0,.7),0 0 60px rgba(249,23,79,.5);
+}
+/* Full artwork image */
+.vinyl-label{
+  position:absolute;inset:0;border-radius:50%;background-size:cover;background-position:center;z-index:1;
+  box-shadow:inset 0 0 18px rgba(0,0,0,.55);
+}
+/* Iridescent rotating sheen — rose/violet/bleu uniquement */
+.vinyl-disc{
+  position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(
+    rgba(255,20,147,.35) 0deg,
+    rgba(200,0,255,.28) 70deg,
+    rgba(60,0,255,.22) 130deg,
+    rgba(0,160,255,.2) 180deg,
+    rgba(180,0,255,.26) 250deg,
+    rgba(255,20,147,.35) 360deg
+  );
+  mix-blend-mode:screen;z-index:2;
+  animation:cdSheen 5s linear infinite;pointer-events:none;
+}
+.vinyl-item:hover .vinyl-disc{animation-play-state:paused}
+@keyframes cdSheen{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+/* Specular highlight principal */
+.vinyl-sheen{
+  position:absolute;inset:0;border-radius:50%;
+  background:
+    radial-gradient(ellipse at 28% 22%,rgba(255,255,255,.55) 0%,rgba(255,255,255,.12) 28%,transparent 52%),
+    radial-gradient(ellipse at 72% 78%,rgba(255,100,200,.18) 0%,transparent 45%);
+  z-index:3;pointer-events:none;
+}
+/* Bord tranché — effet épaisseur CD */
+.vinyl-item::before{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  box-shadow:
+    inset 3px 3px 6px rgba(255,255,255,.12),
+    inset -3px -3px 8px rgba(0,0,0,.6);
+  z-index:6;pointer-events:none;
+}
+/* Center hole */
+.vinyl-hole{
+  position:absolute;width:14px;height:14px;top:50%;left:50%;
+  transform:translate(-50%,-50%);border-radius:50%;
+  background:radial-gradient(circle,#12101a,#07050d);
+  z-index:4;
+  border:1.5px solid rgba(255,255,255,.25);
+  box-shadow:0 0 10px rgba(0,0,0,.95),inset 0 0 4px rgba(0,0,0,.8);
+}
+/* Outer rim */
+.vinyl-rim{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(255,255,255,.14);z-index:5;pointer-events:none}
+
+/* ══ EXPÉRIENCES ══ */
+.xp-list{display:flex;flex-direction:column;gap:10px;margin-top:24px}
+.xp{
+  border:1px solid var(--gborder);border-radius:100px;background:var(--gb);
+  backdrop-filter:var(--blur);overflow:hidden;
+  transition:border-color .35s,border-radius .4s var(--ease),box-shadow .35s
+}
+.xp:hover{border-color:rgba(255,111,168,.25)}
+.xp[open]{border-radius:20px;border-color:rgba(255,111,168,.4);box-shadow:0 0 30px rgba(249,23,79,.08)}
+.xp-title{display:flex;justify-content:space-between;align-items:center;padding:16px 22px;font-size:11px;font-weight:700;letter-spacing:.06em;color:var(--white);cursor:pointer;list-style:none;gap:12px;user-select:none}
+.xp-title::-webkit-details-marker{display:none}
+.xp-title:hover{color:var(--p3)}
+.xp-arrow{
+  font-size:11px;color:var(--p3);transition:transform .4s var(--ease);flex-shrink:0;
+  background:rgba(249,23,79,.1);border:1px solid rgba(249,23,79,.2);
+  width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center
+}
+.xp[open] .xp-arrow{transform:rotate(180deg);background:rgba(249,23,79,.2)}
+.xp-body{padding:0 22px 20px;display:flex;flex-direction:column;gap:10px}
+.xp-tag{display:inline-flex;align-items:center;gap:6px;font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--p3);background:rgba(249,23,79,.08);padding:4px 12px;border-radius:100px;border:1px solid rgba(249,23,79,.18)}
+.xp-body p{font-size:13px;font-weight:300;line-height:1.8;color:var(--muted);margin:0}
+.xp-logo{height:32px;width:auto;object-fit:contain;display:block;margin-bottom:4px;opacity:.85}
+
+/* ══ WORK ══ */
+.w-head{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:40px}
+.w-head .s-title{margin-bottom:0}
+.lall{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--p3);text-decoration:none;display:flex;align-items:center;gap:8px;transition:gap .2s;cursor:pointer}
+.lall:hover{gap:14px}
+.gmain{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.gsub{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.pc{position:relative;overflow:hidden;border-radius:22px;border:1px solid var(--gborder);background:var(--gb);backdrop-filter:var(--blur);cursor:pointer;transition:border-color .3s,box-shadow .3s,transform .3s var(--ease)}
+.pc:hover{border-color:rgba(255,111,168,.45);box-shadow:0 0 50px rgba(249,23,79,.2);transform:translateY(-4px)}
+.pc img{width:100%;aspect-ratio:16/9;object-fit:cover;object-position:center;display:block;transition:transform .7s var(--ease)}
+.pc.tall img{aspect-ratio:16/9}
+.pct-bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(.28);transition:filter .4s;z-index:0}
+.pct:hover .pct-bg{filter:brightness(.45)}
+.pct .pc-cat,.pct .pc-name,.pct .arr{position:relative;z-index:1}
+.pc:hover img{transform:scale(1.07)}
+.pc-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(6,4,10,.92) 0%,rgba(6,4,10,.1) 50%,transparent 100%);opacity:0;transition:opacity .4s}
+.pc:hover .pc-ov{opacity:1}
+.pc-body{position:absolute;bottom:0;left:0;right:0;padding:24px;transform:translateY(8px);transition:transform .4s var(--ease)}
+.pc:hover .pc-body{transform:translateY(0)}
+.pc-cat{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--p3);margin-bottom:6px}
+.pc-name{font-size:19px;font-weight:700;letter-spacing:-.01em;color:var(--white)}
+.pct{position:relative;overflow:hidden;border-radius:22px;border:1px solid var(--gborder);background:var(--gb);backdrop-filter:var(--blur);padding:36px 28px;cursor:pointer;transition:background .3s,border-color .3s,box-shadow .3s,transform .3s var(--ease)}
+.pct:hover{background:var(--ghover);border-color:rgba(255,111,168,.4);box-shadow:0 0 30px rgba(249,23,79,.15);transform:translateY(-4px)}
+.pct::after{content:'';position:absolute;top:-50px;right:-50px;width:120px;height:120px;border-radius:50%;background:radial-gradient(var(--p3),transparent 70%);opacity:0;transition:opacity .4s}
+.pct:hover::after{opacity:.14}
+.pct .arr{font-size:22px;color:var(--p3);margin-top:14px;display:block;transition:transform .2s}
+.pct:hover .arr{transform:translate(4px,-4px)}
+
+/* ══ ABOUT PLAYER ══ */
+@keyframes apFill{0%{width:35%}100%{width:90%}}
+.ap-player{position:relative;border-radius:28px;overflow:hidden;width:100%;height:580px}
+.ap-bg{position:absolute;inset:0;background-size:cover;background-position:center top;opacity:.9}
+.ap-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(6,4,10,.2) 0%,rgba(6,4,10,.55) 55%,rgba(6,4,10,.82) 100%)}
+.ap-card{position:absolute;bottom:0;left:0;right:0;padding:20px;z-index:2}
+.ap-top{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.ap-art{width:48px;height:48px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid rgba(255,255,255,.2)}
+.ap-meta{flex:1;min-width:0}
+.ap-track{font-size:14px;font-weight:700;color:var(--white);letter-spacing:-.01em}
+.ap-artist{font-size:10px;color:rgba(255,255,255,.5);margin-top:2px}
+.ap-top-actions{display:flex;gap:8px}
+.ap-ico{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:11px;text-decoration:none;transition:background .2s}
+.ap-ico:hover{background:rgba(249,23,79,.3)}
+.ap-ico-heart{color:var(--p3)}
+.ap-prog-bar{height:2.5px;background:rgba(255,255,255,.18);border-radius:100px;margin-bottom:6px;overflow:hidden}
+.ap-prog-fill{height:100%;background:linear-gradient(90deg,var(--p3),var(--p1));border-radius:100px;animation:apFill 90s linear forwards}
+.ap-times{display:flex;justify-content:space-between;font-size:9px;color:rgba(255,255,255,.38);font-weight:600;letter-spacing:.06em;margin-bottom:16px}
+.ap-btns{display:flex;align-items:center;gap:8px}
+.ap-ctrl{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:var(--white);font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s}
+.ap-ctrl:hover{background:rgba(255,255,255,.2);transform:scale(1.08)}
+.ap-play{width:44px;height:44px;border-radius:50%;background:var(--white);color:#06040a;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;border:none;flex-shrink:0;text-decoration:none;transition:transform .15s,box-shadow .2s;box-shadow:0 0 20px rgba(255,255,255,.18)}
+.ap-play:hover{transform:scale(1.1);box-shadow:0 0 35px rgba(255,255,255,.3)}
+.ap-spacer{flex:1}
+.ap-chip{display:inline-flex;align-items:center;background:rgba(249,23,79,.18);border:1px solid rgba(249,23,79,.35);border-radius:100px;padding:5px 12px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--p3)}
+
+/* ══ ABOUT ══ */
+.ag{display:grid;grid-template-columns:1fr 1.1fr 1fr;gap:40px;align-items:start}
+.aimg{position:relative;border-radius:28px;overflow:hidden;border:1px solid var(--gborder)}
+.aimg::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(232,0,106,.1),rgba(181,0,110,.06));pointer-events:none;z-index:1}
+.aimg img{width:100%;display:block;aspect-ratio:3/4;object-fit:cover;transition:transform .9s var(--ease)}
+.aimg-ph{aspect-ratio:3/4;display:flex;align-items:center;justify-content:center;font-size:90px;font-weight:900;color:rgba(255,255,255,.04);background:linear-gradient(135deg,#0f0a12,#1a0318)}
+.an{font-size:clamp(36px,5vw,54px);font-weight:900;line-height:1.0;letter-spacing:-.03em;margin-bottom:28px}
+.an .thin{font-weight:200;font-style:italic}
+.at{font-size:14px;font-weight:300;line-height:1.85;color:var(--muted);margin-bottom:40px}
+.skills{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sk{
+  display:flex;align-items:center;gap:10px;background:var(--gb);border:1px solid var(--gborder);
+  backdrop-filter:var(--blur);padding:12px 16px;border-radius:12px;font-size:10px;font-weight:600;
+  letter-spacing:.06em;color:var(--muted);
+  transition:background .3s,border-color .3s,color .3s,box-shadow .3s,transform .3s var(--ease)
+}
+.sk:hover{background:var(--ghover);border-color:rgba(255,111,168,.5);color:var(--white);box-shadow:0 0 18px rgba(249,23,79,.12);transform:translateY(-2px)}
+.sk::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--p3);flex-shrink:0;transition:box-shadow .3s}
+.sk:hover::before{box-shadow:0 0 8px var(--p3)}
+
+/* ══ CONTACT ══ */
+#contact{text-align:center;padding:120px 80px}
+.cbig{font-size:clamp(42px,9vw,105px);font-weight:900;line-height:.9;letter-spacing:-.04em;margin:24px 0 56px}
+.cbig .thin{font-weight:200;font-style:italic}
+.cbig .grad{background:linear-gradient(135deg,var(--p3),var(--p1),var(--p4));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.ccard{display:inline-flex;align-items:center;gap:28px;flex-wrap:wrap;justify-content:center;background:var(--gb);border:1px solid var(--gborder);backdrop-filter:var(--blur);padding:24px 44px;border-radius:24px;margin-bottom:36px}
+.cl{font-size:10px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s}
+.cl:hover{color:var(--white)}
+.sep{width:1px;height:22px;background:var(--gborder)}
+.cemail{display:inline-block;font-size:clamp(13px,1.8vw,19px);font-weight:400;letter-spacing:.02em;color:var(--p3);text-decoration:none;background:var(--gb);border:1px solid rgba(255,111,168,.3);padding:16px 44px;border-radius:100px;backdrop-filter:var(--blur);transition:background .2s,box-shadow .2s}
+.cemail:hover{background:var(--ghover);box-shadow:0 0 50px rgba(249,23,79,.3)}
+
+/* ══ COVERFLOW ══ */
+.cf-section{padding:0 0 80px;position:relative;overflow:hidden}
+.cf-stage{
+  position:relative;height:min(520px,70vh);
+  perspective:1400px;perspective-origin:50% 50%;
+  display:flex;align-items:center;justify-content:center;
+  overflow:visible;
+}
+.cf-card{
+  position:absolute;
+  width:min(340px,48vw);height:min(460px,60vh);
+  border-radius:22px;overflow:hidden;cursor:pointer;
+  transition:transform .6s cubic-bezier(.4,0,.2,1),opacity .5s ease,box-shadow .4s;
+  border:1px solid rgba(255,255,255,.08);
+  user-select:none;transform-style:preserve-3d;
+}
+.cf-card.active{box-shadow:0 24px 70px rgba(249,23,79,.28),0 0 0 1px rgba(249,23,79,.18)}
+.cf-card-bg{position:absolute;inset:0;background-size:cover;background-position:center}
+.cf-card-ov{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(6,4,10,.88) 100%)}
+.cf-card-body{position:absolute;bottom:0;left:0;right:0;padding:20px 24px;z-index:2}
+.cf-card-cat{font-size:8px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--p3);background:rgba(249,23,79,.15);border:1px solid rgba(249,23,79,.3);padding:3px 10px;border-radius:100px;display:inline-block;margin-bottom:8px}
+.cf-card-title{font-size:clamp(18px,2.4vw,26px);font-weight:900;letter-spacing:-.03em;color:var(--white);line-height:1.1;margin-bottom:4px}
+.cf-card-sub{font-size:11px;color:rgba(255,255,255,.45);font-weight:400}
+/* Player */
+.cf-controls{position:relative;display:flex;align-items:center;justify-content:center;margin-top:38px;padding:0 80px}
+.cf-center{display:flex;flex-direction:column;align-items:center;gap:14px}
+.cf-player{
+  display:inline-flex;align-items:center;gap:14px;
+  background:rgba(255,255,255,.06);border:1px solid var(--gborder);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-radius:100px;padding:10px 16px 10px 10px;
+}
+.cf-all{
+  position:absolute;right:80px;
+  display:inline-flex;align-items:center;gap:12px;
+  background:rgba(249,23,79,.1);border:1px solid rgba(249,23,79,.28);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-radius:100px;padding:10px 16px 10px 14px;
+  text-decoration:none;transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;
+}
+.cf-all:hover{background:rgba(249,23,79,.2);border-color:rgba(249,23,79,.5);transform:translateY(-2px);box-shadow:0 0 30px rgba(249,23,79,.2)}
+.cf-all-icon{width:40px;height:40px;border-radius:50%;background:rgba(249,23,79,.2);border:1px solid rgba(249,23,79,.35);display:flex;align-items:center;justify-content:center;color:var(--p3);font-size:12px;flex-shrink:0}
+.cf-btn{
+  width:40px;height:40px;border-radius:50%;
+  background:rgba(255,255,255,.09);border:1px solid var(--gborder);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--white);font-size:13px;cursor:pointer;
+  transition:background .2s,border-color .2s,transform .15s;
+  flex-shrink:0;
+}
+.cf-btn:hover{background:rgba(249,23,79,.22);border-color:rgba(249,23,79,.45);transform:scale(1.1)}
+.cf-btn:active{transform:scale(.93)}
+.cf-thumb{width:40px;height:40px;border-radius:9px;background-size:cover;background-position:center;border:1px solid var(--gborder);flex-shrink:0;transition:background-image .3s}
+.cf-info{min-width:160px;text-align:center}
+.cf-info-title{font-size:13px;font-weight:700;color:var(--white);letter-spacing:-.01em}
+.cf-info-sub{font-size:9px;color:var(--p3);font-weight:600;letter-spacing:.1em;text-transform:uppercase;margin-top:2px}
+.cf-dots{display:flex;gap:6px;align-items:center}
+.cf-dot{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.2);transition:background .3s,width .3s;cursor:pointer}
+.cf-dot.active{background:var(--p3);width:14px;border-radius:3px}
+/* CTA button */
+.stack-cta{display:flex;justify-content:center}
+.btn-all-proj{display:inline-flex;align-items:center;gap:16px;padding:20px 44px;border:1px solid var(--gborder);border-radius:100px;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:var(--gb);backdrop-filter:var(--blur);color:var(--white);text-decoration:none;transition:border-color .3s,box-shadow .3s,transform .3s var(--ease)}
+.btn-all-proj:hover{border-color:rgba(255,111,168,.5);box-shadow:0 0 50px rgba(249,23,79,.22);transform:translateY(-3px)}
+.btn-all-arr{font-size:17px;color:var(--p3);transition:transform .3s;display:inline-block}
+.btn-all-proj:hover .btn-all-arr{transform:translateX(5px)}
+
+@media(max-width:1100px){
+  #hero{padding:100px 48px 60px;gap:40px}
+  .scard{width:min(680px,88vw);height:min(480px,72vh)}
+  /* About — 2 cols sur tablette */
+  .ag{grid-template-columns:1fr 1.4fr;gap:32px}
+  .ag>:last-child{grid-column:1/-1}
+  /* Coverflow tablette */
+  .cf-stage{height:min(460px,62vh)}
+  .cf-card{width:min(300px,42vw);height:min(410px,54vh)}
+  .cf-controls{padding:0 40px}
+  .cf-all{right:40px}
+}
+@media(max-width:768px){
+  /* Hero centré */
+  #hero{padding:100px 20px 72px;grid-template-columns:1fr;gap:0;text-align:center}
+  .hero-left{align-items:center}
+  .hero-right{display:none}
+  .hero-sub{text-align:center}
+  .hero-btns{flex-direction:row;flex-wrap:wrap;justify-content:center;gap:10px}
+  .btn-p,.btn-g{padding:13px 22px;font-size:10px}
+  .hero-stats{
+    display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;justify-content:center
+  }
+  .stat{min-width:0;flex:1;padding:14px 16px}
+  .stat-n{font-size:22px}
+  /* Stack cards mobile */
+  .stack-wrap{height:calc(5 * 80vh)}
+  .stack-stage{height:100svh}
+  .scard{width:92vw;height:min(480px,70vh)}
+  .scard-title{font-size:clamp(26px,6vw,40px)}
+  .scard-body{padding:22px 24px}
+  .scard-top{top:20px;left:20px;right:20px}
+  /* Coverflow mobile */
+  .cf-section{padding:0 0 50px}
+  .cf-stage{height:min(340px,55vh);perspective:900px}
+  .cf-card{width:min(210px,68vw);height:min(290px,46vh)}
+  .cf-card-title{font-size:clamp(15px,4vw,20px)}
+  .cf-controls{flex-direction:column;align-items:center;padding:0 20px;gap:14px;margin-top:20px}
+  .cf-all{position:static}
+  .cf-player{max-width:100%;width:auto;justify-content:center}
+  .cf-info{min-width:100px}
+  /* About — 1 col sur mobile */
+  .ag{grid-template-columns:1fr;gap:32px}
+  .ap-player{max-width:320px;margin:0 auto}
+  .aimg{max-width:280px;margin:0 auto}
+  /* Experiences */
+  .xp-title{font-size:10px}
+  /* Work header */
+  .w-head{text-align:left}
+}
+
+/* ══ NAV BURGER — force sur index ══ */
+@media(max-width:1100px){
+  #main-nav .nav-links,
+  #main-nav .nav-cta{display:none!important}
+  #main-nav .nav-burger{display:flex!important}
+}
+
+/* ══ INTRO SCREEN ══ */
+#intro-screen{
+  position:fixed;inset:0;z-index:10000;
+  background:transparent;
+  display:flex;align-items:center;justify-content:center;
+  transition:transform .7s cubic-bezier(.7,0,.3,1);
+  pointer-events:none;
+}
+#intro-screen.slide{transform:translateX(105%)}
+/* Contenu page caché pendant l'intro */
+#page-content{
+  opacity:0;
+  transition:opacity .55s ease;
+}
+#page-content.ready{opacity:1}
+/* Conteneur logo */
+#is-logo{
+  position:relative;
+  display:inline-block;
+  opacity:0;transition:opacity .3s ease;
+}
+#is-logo.show{opacity:1}
+/* Contour vide — texte fantôme */
+#is-base{
+  display:block;
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(28px,6.5vw,96px);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-.04em;
+  color:rgba(255,111,168,.18);
+  filter:drop-shadow(0 0 8px rgba(255,111,168,.15));
+  white-space:nowrap;
+  user-select:none;
+}
+/* Remplissage rose gauche → droite — superposé exactement */
+#is-fill{
+  position:absolute;
+  top:0;left:0;width:100%;height:100%;
+  display:flex;align-items:center;
+  font-family:'Montserrat',sans-serif;
+  font-size:clamp(28px,6.5vw,96px);
+  font-weight:900;
+  line-height:1;
+  letter-spacing:-.04em;
+  background:linear-gradient(to right,#9b0050 0%,#e8006a 40%,#ff6fa8 100%);
+  -webkit-background-clip:text;background-clip:text;
+  color:transparent;
+  clip-path:inset(0 100% 0 0);
+  transition:clip-path 1.3s cubic-bezier(.38,0,.18,1);
+  white-space:nowrap;user-select:none;
+}
+#is-fill.fill{clip-path:inset(0 0% 0 0)}
+</style>
+</head>
+<body>
+
+<!-- INTRO SCREEN -->
+<div id="intro-screen">
+  <div id="is-logo">
+    <span id="is-base">Mon portfolio.</span>
+    <span id="is-fill">Mon portfolio.</span>
+  </div>
+</div>
+
+<div id="cur"><div id="cdot"></div><div id="cring"></div></div>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div><div class="orb o5"></div></div>
+<div class="grid-bg"></div>
+<div class="star-glows"><div class="sg sg1"></div><div class="sg sg2"></div><div class="sg sg3"></div></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="index.html">Selma<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:selmaomri05@gmail.com">Me contacter</a>
+  <button class="nav-burger" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div id="page-content">
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-shape hs1"></div>
+  <div class="hero-shape hs2"></div>
+  <div class="hero-shape hs3"></div>
+  <div class="hero-left">
+    <div class="hero-chip"><span class="chip-dot"></span>Disponible pour alternance</div>
+    <h1 class="hero-title">
+      <span class="hl1">Design</span>
+      <span class="hl2">Créatif</span>
+      <span class="hl3">& Digital</span>
+    </h1>
+    <p class="hero-sub">Étudiante en Bachelor Design Digital & Communication. Je crée des expériences visuelles mémorables  UX/UI, branding, design graphique, photographie, motion design, montage vidéo.</p>
+    <div class="hero-btns">
+      <a class="btn-p" href="#work">Voir mes projets ▶▶</a>
+      <a class="btn-g" href="mailto:selmaomri05@gmail.com">Contactez-moi</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-n">9<em>+</em></div><div class="stat-l">Projets</div></div>
+      <div class="stat"><div class="stat-n">3<em>ans</em></div><div class="stat-l">Expérience</div></div>
+      <div class="stat"><div class="stat-n">6<em>+</em></div><div class="stat-l">Disciplines</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-video-wrap">
+      <video autoplay loop muted playsinline>
+        <source src="animation logo.mov" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-wrap"><div class="mq-track" id="mqt"></div></div>
+
+<!-- VINYL -->
+<div class="vinyl-s">
+  <div class="vinyl-row"><div class="vinyl-track" id="vinylTrack"></div></div>
+</div>
+
+<!-- WORK HEADER -->
+<div class="s" id="work" style="padding-bottom:40px;position:relative">
+  <div class="s-deco sd1"></div>
+  <div class="w-head">
+    <div>
+      <div class="tag r">Projets sélectionnés</div>
+      <h2 class="s-title r d1">Mon <span class="thin"><em>travail</em></span></h2>
+    </div>
+    <a class="lall r d2" href="projets.html">Tout voir ▶▶</a>
+  </div>
+</div>
+
+<!-- COVERFLOW -->
+<div class="cf-section">
+  <div class="cf-stage" id="cfStage">
+
+    <div class="cf-card"
+      data-href="photographie.html"
+      data-img="photographie/concert/DSC04443.jpeg"
+      data-title="Photographie"
+      data-sub="Concert · Sport · Ville"
+      data-cat="Photographie · Reportage">
+      <div class="cf-card-bg" style="background-image:url('photographie/concert/DSC04443.jpeg')"></div>
+      <div class="cf-card-ov"></div>
+      <div class="cf-card-body">
+        <span class="cf-card-cat">Photographie</span>
+        <div class="cf-card-title">Photographie</div>
+        <div class="cf-card-sub">Concert · Sport · Ville</div>
+      </div>
+    </div>
+
+    <div class="cf-card"
+      data-href="design.html"
+      data-img="img/magazine.png"
+      data-title="Design Personnel"
+      data-sub="Poster · Musique · Culture pop"
+      data-cat="Personnel · Graphisme">
+      <div class="cf-card-bg" style="background-image:url('img/magazine.png')"></div>
+      <div class="cf-card-ov"></div>
+      <div class="cf-card-body">
+        <span class="cf-card-cat">Design graphique</span>
+        <div class="cf-card-title">Design Personnel</div>
+        <div class="cf-card-sub">Poster · Musique</div>
+      </div>
+    </div>
+
+    <div class="cf-card"
+      data-href="pouch.html"
+      data-img="img/pouchposter.png"
+      data-title="POUCH"
+      data-sub="Identité de marque"
+      data-cat="Projet scolaire · Branding">
+      <div class="cf-card-bg" style="background-image:url('img/pouchposter.png')"></div>
+      <div class="cf-card-ov"></div>
+      <div class="cf-card-body">
+        <span class="cf-card-cat">Branding</span>
+        <div class="cf-card-title">POUCH</div>
+        <div class="cf-card-sub">Identité de marque</div>
+      </div>
+    </div>
+
+    <div class="cf-card"
+      data-href="scbvg.html"
+      data-img="img/match.png"
+      data-title="Saint-Chamond Basket"
+      data-sub="Communication digitale"
+      data-cat="Expérience pro · Com">
+      <div class="cf-card-bg" style="background-image:url('img/match.png')"></div>
+      <div class="cf-card-ov"></div>
+      <div class="cf-card-body">
+        <span class="cf-card-cat">Communication</span>
+        <div class="cf-card-title">Saint-Chamond Basket</div>
+        <div class="cf-card-sub">Community management</div>
+      </div>
+    </div>
+
+    <div class="cf-card"
+      data-href="metamorph.html"
+      data-img="métaphor/ban.jpg"
+      data-title="Métamorph"
+      data-sub="Dossier de presse · Web"
+      data-cat="Projet scolaire · Direction artistique">
+      <div class="cf-card-bg" style="background-image:url('métaphor/ban.jpg')"></div>
+      <div class="cf-card-ov"></div>
+      <div class="cf-card-body">
+        <span class="cf-card-cat">Direction artistique</span>
+        <div class="cf-card-title">Métamorph</div>
+        <div class="cf-card-sub">Dossier de presse · Web</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cf-controls">
+    <div class="cf-center">
+      <div class="cf-player">
+        <button class="cf-btn cf-prev">&#9664;&#9664;</button>
+        <div class="cf-thumb" id="cfThumb"></div>
+        <div class="cf-info">
+          <div class="cf-info-title" id="cfTitle">POUCH</div>
+          <div class="cf-info-sub" id="cfSub">Identité de marque</div>
+        </div>
+        <button class="cf-btn cf-next">&#9654;&#9654;</button>
+      </div>
+      <div class="cf-dots" id="cfDots"></div>
+    </div>
+    <a class="cf-all" href="projets.html">
+      <div class="cf-all-icon">&#9654;&#9654;</div>
+      <div class="cf-info" style="min-width:110px">
+        <div class="cf-info-title">Tous les</div>
+        <div class="cf-info-sub">projets</div>
+      </div>
+    </a>
+  </div>
+</div>
+
+
+<!-- ABOUT -->
+<div class="s" id="about">
+  <div class="ag">
+    <div class="ap-player r-left" id="about-img-wrap">
+      <div class="ap-bg" style="background-image:url('img/albumcover2.png')"></div>
+      <div class="ap-overlay"></div>
+      <div class="ap-card">
+        <div class="ap-top">
+          <img class="ap-art" src="img/albumcover2.png" alt="Selma Omri">
+          <div class="ap-meta">
+            <div class="ap-track">Selma Omri</div>
+            <div class="ap-artist">Design Digital & Communication</div>
+          </div>
+          <div class="ap-top-actions">
+            <a href="https://www.linkedin.com/in/selma-omri-51a4a2339/" target="_blank" class="ap-ico">in</a>
+            <a href="mailto:selmaomri05@gmail.com" class="ap-ico ap-ico-heart">♥</a>
+          </div>
+        </div>
+        <div class="ap-prog-bar"><div class="ap-prog-fill"></div></div>
+        <div class="ap-times"><span>Disponible · France</span><span>2025</span></div>
+        <div class="ap-btns">
+          <button class="ap-ctrl">&#9664;&#9664;</button>
+          <a href="mailto:selmaomri05@gmail.com" class="ap-play">&#9654;</a>
+          <button class="ap-ctrl">&#9654;&#9654;</button>
+          <button class="ap-ctrl">♫</button>
+          <div class="ap-spacer"></div>
+          <span class="ap-chip">Alternance &#9654;&#9654;</span>
+        </div>
+      </div>
+    </div>
+    <!-- COL 2 : bio -->
+    <div>
+      <div class="tag r">À propos de moi</div>
+      <h2 class="an r d1">Selma <span class="thin"><em>Omri</em></span></h2>
+      <p class="at r d2">Étudiante en Bachelor Design Digital et Communication, je suis également assistante communication pour le club de basket de Saint-Chamond. Passionnée par la création visuelle et le digital, je combine mes compétences en communication avec mon goût pour le design, la photographie et le contenu interactif.<br><br>Mon parcours me permet d'explorer différentes formes de communication tout en développant des projets concrets et innovants.</p>
+    </div>
+
+    <!-- COL 3 : compétences + expériences -->
+    <div>
+      <div class="tag r" style="transition-delay:.3s">Compétences</div>
+      <div class="skills r d1" style="margin-top:18px;margin-bottom:36px">
+        <div class="sk">Design graphique</div><div class="sk">Direction artistique</div>
+        <div class="sk">Photographie</div><div class="sk">Montage vidéo</div>
+        <div class="sk">UX/UI Design</div><div class="sk">Motion Design</div>
+        <div class="sk">Réseaux sociaux</div><div class="sk">Com. digitale</div>
+      </div>
+      <div class="tag r" style="transition-delay:.45s">Expériences</div>
+      <div class="xp-list r" style="transition-delay:.5s">
+        <details class="xp">
+          <summary class="xp-title"><span class="xp-badge">Stage</span>Graphiste · Mairie de Saint-Chamond<span class="xp-arrow">▼</span></summary>
+          <div class="xp-body">
+            <img src="logo/logosaintchamond.png" alt="Mairie de Saint-Chamond" class="xp-logo">
+            <span class="xp-tag">Stage · 1 mois</span>
+            <p>Création de supports visuels print et digitaux pour la communication de la mairie  affiches, flyers, visuels réseaux sociaux.</p>
+          </div>
+        </details>
+        <details class="xp">
+          <summary class="xp-title"><span class="xp-badge">Stage</span>Agence de communication DigiStylze<span class="xp-arrow">▼</span></summary>
+          <div class="xp-body">
+            <img src="logo/Digistylze_Icon_4.png" alt="DigiStylze" class="xp-logo">
+            <span class="xp-tag">Stage · 2 mois · Suisse</span>
+            <p>Au sein de l'agence de communication DigiStylze, création de contenus, gestion des réseaux sociaux et production de supports de communication pour différents clients.</p>
+          </div>
+        </details>
+        <details class="xp">
+          <summary class="xp-title"><span class="xp-badge" style="color:#a78bfa;background:rgba(167,139,250,.12);border-color:rgba(167,139,250,.25)">Poste</span>Chargée de com · SCBVG<span class="xp-arrow">▼</span></summary>
+          <div class="xp-body">
+            <img src="logo/LOgoscbvg.png" alt="SCBVG" class="xp-logo">
+            <span class="xp-tag">En cours · Saint-Chamond</span>
+            <p>Assistante communication pour le Saint-Chamond Basket Vallée du Gier  création de visuels, gestion du compte Instagram, couverture photo des matchs et événements du club.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CONTACT -->
+<div class="s" id="contact" style="text-align:center">
+  <div class="s-deco sd1" style="left:50%;transform:translateX(-50%);top:-50px;opacity:.06"></div>
+  <div class="tag r" style="justify-content:center">Travaillons ensemble</div>
+  <h2 class="cbig r d1"><span class="thin">Vous aimez</span><br>ce que <span class="grad">vous voyez ?</span></h2>
+  <div class="ccard r d2">
+    <a href="https://www.linkedin.com/in/selma-omri-51a4a2339/" target="_blank" class="cl">LinkedIn</a>
+    <div class="sep"></div>
+    <a href="https://www.instagram.com/" target="_blank" class="cl">Instagram</a>
+  </div>
+  <div class="r d3"><a href="mailto:selmaomri05@gmail.com" class="cemail">selmaomri05@gmail.com</a></div>
+</div>
+
+<footer>
+  <span>Selma Omri</span>
+  <span>Design Digital & Communication  2025</span>
+  <span>France</span>
+</footer>
+</div><!-- fin #page-content -->
+
+<script src="shared.js"></script>
+<script>
+// ══ HERO PARTICLES ══
+(function(){
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+  const count = 22;
+  for (let i = 0; i < count; i++) {
+    const p = document.createElement('div');
+    const size = Math.random() * 3 + 1;
+    const opacity = Math.random() * 0.35 + 0.08;
+    const dur = 6 + Math.random() * 9;
+    const delay = -(Math.random() * 10);
+    p.style.cssText = `
+      position:absolute;pointer-events:none;border-radius:50%;z-index:0;
+      width:${size}px;height:${size}px;
+      background:rgba(255,111,168,${opacity});
+      top:${Math.random() * 100}%;left:${Math.random() * 100}%;
+      animation:particleDrift ${dur}s ease-in-out ${delay}s infinite alternate;
+    `;
+    hero.appendChild(p);
+  }
+})();
+
+// ══ MARQUEE ══
+const terms = ['Design Graphique','UX/UI Design','Photographie','Motion Design','Direction Artistique','Branding','Identité Visuelle','Communication Digitale','Montage Vidéo','Storytelling','Réseaux Sociaux','Print & Digital'];
+const mq = document.getElementById('mqt');
+[...terms,...terms].forEach(t => {
+  mq.innerHTML += `<span class="mq-item"><span class="mdot"></span>${t}</span>`;
+});
+
+// ══ VINYL TRACK ══
+(function(){
+  const vt = document.getElementById('vinylTrack');
+  if (!vt) return;
+  const vinylImgs = [
+    'design/billiebrutalism.png',
+    'photographie/concert/DSC04443.jpeg',
+    'design/clairo.jpg',
+    'photographie/concert/DSC04431.jpeg',
+    'design/gracieabrams.png',
+    'photographie/sport - scaab/DSC_3599.jpg',
+    'design/dojacat2.png',
+    'photographie/concert/DSC04465.jpeg',
+    'design/jennie.png',
+    'photographie/ville/DSC02576.jpeg',
+    'design/Tatemcrea.png',
+    'photographie/sport - scaab/DSC_2788.jpg',
+    'design/zaralarsson.png',
+    'photographie/concert/DSC04521.jpeg',
+    'img/albumcover2.png',
+    'photographie/ville/DSC03162.jpeg',
+  ];
+  [...vinylImgs, ...vinylImgs].forEach(src => {
+    vt.innerHTML += `
+      <div class="vinyl-item">
+        <div class="vinyl-label" style="background-image:url('${src}')"></div>
+        <div class="vinyl-disc"></div>
+        <div class="vinyl-sheen"></div>
+        <div class="vinyl-hole"></div>
+        <div class="vinyl-rim"></div>
+      </div>`;
+  });
+})();
+
+// ══ PARALLAX SYSTEM ══
+const heroLeft   = document.querySelector('.hero-left');
+const heroRight  = document.querySelector('.hero-right');
+const aboutImg   = document.getElementById('about-img-wrap');
+const shapes     = document.querySelectorAll('.hero-shape');
+const orbs       = document.querySelectorAll('.orb');
+const decos      = document.querySelectorAll('.s-deco:not([style*="translateX"])');
+const workTitle  = document.querySelector('#work .s-title');
+const aboutTitle = document.querySelector('#about .an');
+
+let mouse = { cx: 0, cy: 0 };
+let rafPending = false;
+
+// Combined update called from both mouse & scroll
+function updateShapes() {
+  const sy = window.scrollY;
+  shapes.forEach((s, i) => {
+    const depth = 8 + i * 5;
+    const scrollRate = [0.12, 0.2, 0.32][i] || 0.2;
+    s.style.transform = `translate(${mouse.cx * depth}px, ${mouse.cy * depth + sy * scrollRate}px)`;
+  });
+}
+
+// Mouse  shapes + orbs
+document.addEventListener('mousemove', e => {
+  mouse.cx = e.clientX / window.innerWidth - .5;
+  mouse.cy = e.clientY / window.innerHeight - .5;
+  updateShapes();
+  orbs.forEach((o, i) => {
+    const d = 10 + i * 6;
+    o.style.transform = `translate(${mouse.cx * d}px,${mouse.cy * d}px)`;
+  });
+});
+
+// Scroll  unified RAF handler
+function applyParallax() {
+  const sy = window.scrollY;
+
+  // Hero depth layers
+  if (heroLeft)  heroLeft.style.transform  = `translateY(${sy * 0.28}px)`;
+  if (heroRight) heroRight.style.transform = `translateY(${sy * 0.1}px)`;
+  updateShapes();
+
+  // Section deco blobs drift
+  decos.forEach((d, i) => {
+    const rect = d.parentElement.getBoundingClientRect();
+    const progress = (window.innerHeight - rect.top) / (window.innerHeight + rect.height);
+    d.style.transform = `translateY(${progress * (i % 2 === 0 ? -50 : 50)}px)`;
+  });
+
+  // Section titles subtle lift
+  [workTitle, aboutTitle].forEach(el => {
+    if (!el) return;
+    const rect = el.getBoundingClientRect();
+    const p = (window.innerHeight - rect.top) / window.innerHeight;
+    if (p > 0 && p < 1.5) el.style.transform = `translateY(${(1 - p) * 18}px)`;
+  });
+
+  // About image
+  if (aboutImg) {
+    const rect = aboutImg.getBoundingClientRect();
+    const p = (window.innerHeight - rect.top) / window.innerHeight;
+    aboutImg.style.transform = `translateY(${p * -32}px)`;
+  }
+
+  rafPending = false;
+}
+
+window.addEventListener('scroll', () => {
+  if (!rafPending) { rafPending = true; requestAnimationFrame(applyParallax); }
+}, { passive: true });
+
+// ══ COVERFLOW ══
+(function(){
+  const cards = [...document.querySelectorAll('.cf-card')];
+  if (!cards.length) return;
+  const N = cards.length;
+  let current = 2;
+
+  const thumbEl = document.getElementById('cfThumb');
+  const titleEl = document.getElementById('cfTitle');
+  const subEl   = document.getElementById('cfSub');
+  const dotsEl  = document.getElementById('cfDots');
+
+  // Build dots
+  cards.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'cf-dot' + (i === 2 ? ' active' : '');
+    d.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(d);
+  });
+
+  function getTransform(offset) {
+    const abs = Math.abs(offset);
+    if (abs > 2) return null;
+    const mob  = window.innerWidth < 768;
+    const tab  = window.innerWidth < 1100 && !mob;
+    const tx   = (mob ? [0,46,84] : tab ? [0,50,95]  : [0,55,105])[abs] * (offset < 0 ? -1 : 1);
+    const ry   = (mob ? [0,-28,-40]: tab ? [0,-36,-48]: [0,-42,-52])[abs] * (offset < 0 ? -1 : 1);
+    const sc   = (mob ? [1,.8,.64] : tab ? [1,.79,.63]: [1,.78,.62])[abs];
+    const tz   = (mob ? [0,-80,-110]: tab ? [0,-120,-160]: [0,-160,-200])[abs];
+    const op   = [1,  .72,  .45][abs];
+    const zi   = [10,   7,    4][abs];
+    return { tx, ry, sc, tz, op, zi };
+  }
+
+  function updateAll() {
+    cards.forEach((card, i) => {
+      const offset = i - current;
+      const t = getTransform(offset);
+      if (!t) { card.style.opacity = '0'; card.style.zIndex = '0'; card.style.pointerEvents = 'none'; return; }
+      card.style.opacity        = t.op;
+      card.style.zIndex         = t.zi;
+      card.style.pointerEvents  = 'auto';
+      card.style.transform      = `translateX(${t.tx}%) rotateY(${t.ry}deg) scale(${t.sc}) translateZ(${t.tz}px)`;
+      card.classList.toggle('active', offset === 0);
+    });
+
+    const c = cards[current];
+    if (thumbEl) thumbEl.style.backgroundImage = `url('${c.dataset.img}')`;
+    if (titleEl) titleEl.textContent = c.dataset.title;
+    if (subEl)   subEl.textContent   = c.dataset.sub;
+    document.querySelectorAll('.cf-dot').forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  function goTo(idx) { current = (idx + N) % N; updateAll(); }
+
+  document.querySelector('.cf-prev').addEventListener('click', () => goTo(current - 1));
+  document.querySelector('.cf-next').addEventListener('click', () => goTo(current + 1));
+
+  // Clic sur une carte non-active ▶▶ la centrer ; active ▶▶ naviguer
+  cards.forEach((card, i) => {
+    card.addEventListener('click', () => {
+      if (i === current) navigateTo(card.dataset.href);
+      else goTo(i);
+    });
+  });
+
+  // Clavier
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  // Swipe mobile
+  let tx0 = 0;
+  const stage = document.getElementById('cfStage');
+  stage.addEventListener('touchstart', e => { tx0 = e.touches[0].clientX; }, { passive: true });
+  stage.addEventListener('touchend',   e => {
+    const dx = e.changedTouches[0].clientX - tx0;
+    if (Math.abs(dx) > 48) goTo(current + (dx < 0 ? 1 : -1));
+  });
+
+
+  updateAll();
+
+  // Recalcul au resize (valeurs mob/tab changent)
+  window.addEventListener('resize', updateAll);
+})();
+
+
+// ══ SMOOTH ANCHOR SCROLLING ══
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+});
+
+// ══ INTRO SCREEN ══
+(function(){
+  const screen  = document.getElementById('intro-screen');
+  const logo    = document.getElementById('is-logo');
+  const fill    = document.getElementById('is-fill');
+  const content = document.getElementById('page-content');
+  if (!screen) return;
+
+  // 200ms  → "Selma." apparaît en contour vide
+  setTimeout(() => logo.classList.add('show'), 200);
+
+  // 420ms  → rose monte dans les lettres (1300ms)
+  setTimeout(() => fill.classList.add('fill'), 420);
+
+  // 1820ms → logo 100% plein → glisse à droite
+  setTimeout(() => screen.classList.add('slide'), 1820);
+
+  // 1900ms → contenu de la page apparaît en fondu
+  setTimeout(() => content && content.classList.add('ready'), 1900);
+
+  // 2600ms → suppression du DOM
+  setTimeout(() => screen.remove(), 2600);
+})();
+</script>
+</body>
+</html>
+
+

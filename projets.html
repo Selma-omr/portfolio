@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tous les projets · Selma Omri</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+.ap-hero{padding:160px 80px 60px;position:relative;z-index:1}
+.ap-hero-title{font-size:clamp(48px,8vw,96px);font-weight:900;line-height:.88;letter-spacing:-.04em;margin:20px 0 24px}
+.ap-hero-sub{font-size:14px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.75}
+
+.ap-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  padding:0 80px 100px;
+  position:relative;z-index:1
+}
+
+/* First 2 cards are big (span 2 cols) */
+.apcard{
+  position:relative;overflow:hidden;border-radius:22px;
+  border:1px solid var(--gborder);background:var(--gb);
+  cursor:pointer;
+  transition:transform .35s var(--ease),border-color .3s,box-shadow .3s
+}
+.apcard:hover{
+  transform:translateY(-5px);
+  border-color:rgba(255,111,168,.45);
+  box-shadow:0 0 50px rgba(249,23,79,.2)
+}
+.apcard.featured{grid-column:span 2}
+
+.apcard-img-wrap{overflow:hidden}
+.apcard-img{
+  width:100%;display:block;
+  object-fit:cover;
+  transition:transform .6s var(--ease)
+}
+.apcard.featured .apcard-img{aspect-ratio:16/9}
+.apcard:not(.featured) .apcard-img{aspect-ratio:4/3}
+.apcard:hover .apcard-img{transform:scale(1.06)}
+
+.apcard-body{padding:20px 24px;border-top:1px solid var(--gborder)}
+.apcard-cat{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--p3);margin-bottom:6px}
+.apcard-name{font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--white);display:flex;justify-content:space-between;align-items:center}
+.apcard-arr{font-size:18px;color:var(--p3);opacity:0;transform:translate(-4px,4px);transition:opacity .3s,transform .3s}
+.apcard:hover .apcard-arr{opacity:1;transform:translate(0,0)}
+
+@media(max-width:900px){
+  .ap-hero{padding:120px 20px 48px}
+  .ap-grid{grid-template-columns:1fr 1fr;padding:0 20px 60px;gap:10px}
+  .apcard.featured{grid-column:span 2}
+}
+@media(max-width:600px){
+  .ap-grid{grid-template-columns:1fr}
+  .apcard.featured{grid-column:span 1}
+}
+</style>
+</head>
+<body>
+
+<div id="cur"><div id="cdot"></div><div id="cring"></div></div>
+<div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div><div class="orb o5"></div></div>
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-logo" href="index.html">Selma<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="projets.html">Projets</a></li>
+    <li><a href="index.html#about">À propos</a></li>
+    <li><a href="mailto:selmaomri05@gmail.com">Contact</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:selmaomri05@gmail.com">Me contacter</a>
+</nav>
+
+<!-- HERO -->
+<div class="ap-hero">
+  <a class="proj-back" href="index.html">◀◀ Retour</a>
+  <div class="tag r" style="margin-top:24px">Portfolio complet</div>
+  <h1 class="ap-hero-title r d1">
+    Tous mes<br><span class="grad">projets</span>
+  </h1>
+  <p class="ap-hero-sub r d2">10 projets  design graphique, photographie, motion, UX/UI, audiovisuel et communication.</p>
+</div>
+
+<!-- GRID -->
+<div class="ap-grid">
+
+  <!-- Featured big -->
+  <div class="apcard featured r r-scale" onclick="navigateTo('pouch.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="img/pouchposter.png" alt="POUCH" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Projet scolaire · Branding</p>
+      <p class="apcard-name">POUCH  Identité de marque <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <div class="apcard r r-scale d1" onclick="navigateTo('metamorph.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="métaphor/ban.jpg" alt="Métamorph" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Projet scolaire · Identité visuelle</p>
+      <p class="apcard-name">Métamorph <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="apcard r r-scale" onclick="navigateTo('scbvg.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="img/match.png" alt="SCBVG" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Expérience pro · Communication</p>
+      <p class="apcard-name">Saint-Chamond Basket <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <div class="apcard featured r r-scale d1" onclick="navigateTo('photographie.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="photographie/concert/DSC04443.jpeg" alt="Photographie" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Photographie · Reportage</p>
+      <p class="apcard-name">Photographie <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <!-- Row 3 -->
+  <div class="apcard r r-scale" onclick="navigateTo('motion.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="img/bannière.gif" alt="Motion Design" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Motion · Animation</p>
+      <p class="apcard-name">Motion Design <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <div class="apcard r r-scale d1" onclick="navigateTo('audiovisuel.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="img/banniereaudiovisuel.jpeg" alt="Audiovisuel" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Production · Vidéo</p>
+      <p class="apcard-name">Audiovisuel <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <div class="apcard r r-scale d2" onclick="navigateTo('design.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="img/magazine.png" alt="Design Personnel" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Personnel · Design graphique</p>
+      <p class="apcard-name">Design Personnel <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <!-- Row 4 -->
+  <div class="apcard featured r r-scale" onclick="navigateTo('travelease.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="travel ease/mockupeasytravel.png" alt="Travel Ease" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Projet scolaire · UX/UI</p>
+      <p class="apcard-name">Travel Ease <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <div class="apcard r r-scale d1" onclick="navigateTo('mute.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="mute/mutemockup.png" alt="MUTE" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Projet scolaire · Branding</p>
+      <p class="apcard-name">MUTE <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+  <div class="apcard r r-scale d2" onclick="navigateTo('pulse.html')">
+    <div class="apcard-img-wrap">
+      <img class="apcard-img" src="pulsefestival/festival.png" alt="Pulse Fest" loading="lazy">
+    </div>
+    <div class="apcard-body">
+      <p class="apcard-cat">Projet scolaire · Festival</p>
+      <p class="apcard-name">Pulse Fest <span class="apcard-arr">▶▶</span></p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <span>Selma Omri</span>
+  <span>Design Digital & Communication  2025</span>
+  <span>France</span>
+</footer>
+
+<script src="shared.js"></script>
+</body>
+</html>
+
+
