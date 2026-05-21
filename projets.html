@@ -1,64 +1,351 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tous les projets · Selma Omri</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,900;1,200;1,300;1,400&family=Bebas+Neue&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <style>
-.ap-hero{padding:160px 80px 60px;position:relative;z-index:1}
-.ap-hero-title{font-size:clamp(48px,8vw,96px);font-weight:900;line-height:.88;letter-spacing:-.04em;margin:20px 0 24px}
-.ap-hero-sub{font-size:14px;font-weight:300;color:var(--muted);max-width:520px;line-height:1.75}
 
-.ap-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  padding:0 80px 100px;
-  position:relative;z-index:1
+:root {
+  --cube-accent: #f9174f;
+  --cube-fg: #e8e0f0;
+  --cube-muted: #666082;
+  --font-display: "Bebas Neue", sans-serif;
+  --font-mono: "DM Mono", monospace;
+  --hairline: 0.0625rem;
+  --ui-inset: 2rem;
+  --card-bg: rgba(6, 4, 10, 0.88);
+  --card-border: rgba(249, 23, 79, 0.22);
+  --nav-x: calc(var(--ui-inset) + 0.125rem);
+  --reveal-offset: 0.625rem;
+  --reveal-dur: 0.5s;
+  --z-ui: 10;
 }
 
-/* First 2 cards are big (span 2 cols) */
-.apcard{
-  position:relative;overflow:hidden;border-radius:22px;
-  border:1px solid var(--gborder);background:var(--gb);
-  cursor:pointer;
-  transition:transform .35s var(--ease),border-color .3s,box-shadow .3s
-}
-.apcard:hover{
-  transform:translateY(-5px);
-  border-color:rgba(255,111,168,.45);
-  box-shadow:0 0 50px rgba(249,23,79,.2)
-}
-.apcard.featured{grid-column:span 2}
+body { overflow-x: hidden; }
 
-.apcard-img-wrap{overflow:hidden}
-.apcard-img{
-  width:100%;display:block;
-  object-fit:cover;
-  transition:transform .6s var(--ease)
+/* ── scene ── */
+#scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1100px;
+  pointer-events: none;
 }
-.apcard.featured .apcard-img{aspect-ratio:16/9}
-.apcard:not(.featured) .apcard-img{aspect-ratio:4/3}
-.apcard:hover .apcard-img{transform:scale(1.06)}
 
-.apcard-body{padding:20px 24px;border-top:1px solid var(--gborder)}
-.apcard-cat{font-size:9px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--p3);margin-bottom:6px}
-.apcard-name{font-size:18px;font-weight:700;letter-spacing:-.01em;color:var(--white);display:flex;justify-content:space-between;align-items:center}
-.apcard-arr{font-size:18px;color:var(--p3);opacity:0;transform:translate(-4px,4px);transition:opacity .3s,transform .3s}
-.apcard:hover .apcard-arr{opacity:1;transform:translate(0,0)}
+#scroll_container {
+  position: relative;
+  z-index: 1;
+}
 
-@media(max-width:900px){
-  .ap-hero{padding:120px 20px 48px}
-  .ap-grid{grid-template-columns:1fr 1fr;padding:0 20px 60px;gap:10px}
-  .apcard.featured{grid-column:span 2}
+section {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 6rem calc(5rem + var(--ui-inset)) 6rem 5rem;
 }
-@media(max-width:600px){
-  .ap-grid{grid-template-columns:1fr}
-  .apcard.featured{grid-column:span 1}
+
+/* ── cube ── */
+#cube {
+  --s: min(48vw, 48vh, 360px);
+  width: var(--s);
+  height: var(--s);
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(90deg) rotateY(0deg);
+  will-change: transform;
 }
+
+.face {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  backface-visibility: hidden;
+  background:
+    repeating-linear-gradient(0deg,   rgba(255,255,255,.015) 0, rgba(255,255,255,.015) 1px, transparent 1px, transparent 48px),
+    repeating-linear-gradient(90deg,  rgba(255,255,255,.015) 0, rgba(255,255,255,.015) 1px, transparent 1px, transparent 48px),
+    #0a0812;
+}
+
+.face img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.face:has(img) .face-ph { display: none; }
+
+.face-ph {
+  position: absolute;
+  bottom: 1.5rem;
+  left: 1.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 8vw, 5rem);
+  letter-spacing: .04em;
+  color: rgba(255,255,255,.04);
+  pointer-events: none;
+  user-select: none;
+}
+
+.face[data-face="front"]  { transform: translateZ(calc(var(--s)/2)); }
+.face[data-face="back"]   { transform: rotateY(180deg) translateZ(calc(var(--s)/2)); }
+.face[data-face="right"]  { transform: rotateY(90deg)  translateZ(calc(var(--s)/2)); }
+.face[data-face="left"]   { transform: rotateY(-90deg) translateZ(calc(var(--s)/2)); }
+.face[data-face="top"]    { transform: rotateX(-90deg) translateZ(calc(var(--s)/2)); }
+.face[data-face="bottom"] { transform: rotateX(90deg)  translateZ(calc(var(--s)/2)); }
+
+/* ── HUD ── */
+#hud {
+  position: fixed;
+  top: 90px;
+  right: var(--ui-inset);
+  z-index: var(--z-ui);
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: .65rem;
+  letter-spacing: .15em;
+  color: var(--cube-muted);
+  text-transform: uppercase;
+}
+
+.progress-bar {
+  width: 7.5rem;
+  height: var(--hairline);
+  background: var(--cube-muted);
+  margin-block-start: .5rem;
+  margin-inline-start: auto;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-fill {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 0%;
+  background: var(--cube-accent);
+  transition: width .1s linear;
+}
+
+.scene-label {
+  font-size: .6rem;
+  color: var(--cube-accent);
+  margin-block-start: .4rem;
+}
+
+/* ── nav dots ── */
+#scene_strip {
+  position: fixed;
+  left: var(--nav-x);
+  top: 50%;
+  translate: -50% -50%;
+  z-index: var(--z-ui);
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+}
+
+.scene-dot {
+  position: relative;
+  display: block;
+  width: .25rem;
+  height: .25rem;
+  border-radius: 50%;
+  background: var(--cube-muted);
+  transition: background .3s, scale .3s;
+  cursor: pointer;
+}
+.scene-dot::before { content: ""; position: absolute; inset: -.2rem; }
+.scene-dot.active { background: var(--cube-accent); scale: 1.8; }
+
+/* ── face caption ── */
+#face_caption {
+  position: fixed;
+  bottom: var(--ui-inset);
+  left: 50%;
+  translate: -50% 0;
+  z-index: var(--z-ui);
+  text-align: center;
+  pointer-events: none;
+  user-select: none;
+}
+
+#face_caption_num {
+  font-family: var(--font-mono);
+  font-size: .58rem;
+  letter-spacing: .28em;
+  color: var(--cube-accent);
+  text-transform: uppercase;
+  margin-block-end: .15rem;
+}
+
+#face_caption_name {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  letter-spacing: .08em;
+  color: var(--cube-muted);
+  opacity: .45;
+  line-height: 1;
+}
+
+/* ── text cards ── */
+.ccard {
+  max-width: 22rem;
+  padding: 2rem 1.75rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  backdrop-filter: blur(24px) saturate(160%);
+  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  box-shadow: 0 8px 40px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06);
+  overflow: hidden;
+}
+
+.ccard.right {
+  margin-inline-start: auto;
+  text-align: right;
+}
+
+.ccard.right .hline { transform-origin: right; margin-inline-start: auto; }
+.ccard.right .crow  { justify-content: flex-end; }
+
+.ctag {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--cube-accent);
+  margin-block-end: 1rem;
+}
+
+.ch1 {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 400;
+  letter-spacing: .03em;
+  line-height: .92;
+  color: #fff;
+}
+
+.ch2 {
+  font-family: var(--font-display);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 400;
+  letter-spacing: .03em;
+  line-height: .92;
+  color: #fff;
+}
+
+.cbody {
+  font-family: 'Montserrat', sans-serif;
+  font-size: .75rem;
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(232, 224, 240, .6);
+  margin-block-start: 1rem;
+}
+
+.hline {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--cube-accent);
+  margin-block-end: 1rem;
+  transform-origin: left;
+  border-radius: 1px;
+}
+
+.crow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .6rem;
+  margin-block-start: 1.5rem;
+}
+
+.ccta {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .55rem 1.1rem;
+  background: rgba(249, 23, 79, .12);
+  border: 1px solid rgba(249, 23, 79, .45);
+  border-radius: 100px;
+  color: var(--cube-accent);
+  font-family: 'Montserrat', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.ccta:hover { background: var(--cube-accent); border-color: var(--cube-accent); color: #fff; }
+.ccta svg { width: .6rem; height: .6rem; }
+
+.ccta-b {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .55rem 1.1rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.1);
+  border-radius: 100px;
+  color: rgba(232, 224, 240, .5);
+  font-family: 'Montserrat', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background .2s, border-color .2s, color .2s;
+}
+.ccta-b:hover { background: rgba(255,255,255,.08); border-color: rgba(255,255,255,.2); color: #fff; }
+.ccta-b svg { width: .6rem; height: .6rem; }
+
+/* ── reveal ── */
+.ctag, .ch1, .ch2, .cbody, .ccta, .ccta-b {
+  opacity: 0;
+  translate: 0 var(--reveal-offset);
+}
+.ch1, .ch2 {
+  translate: 0 1.125rem;
+  transition: opacity var(--reveal-dur) ease .08s, translate var(--reveal-dur) ease .08s;
+}
+.ctag  { transition: opacity var(--reveal-dur) ease,    translate var(--reveal-dur) ease; }
+.cbody { transition: opacity var(--reveal-dur) ease .2s, translate var(--reveal-dur) ease .2s; }
+.ccta, .ccta-b {
+  transition: opacity var(--reveal-dur) ease .35s, translate var(--reveal-dur) ease .35s,
+    background .2s, color .2s, border-color .2s;
+}
+.hline { opacity: 0; scale: 0 1; transition: opacity .4s ease, scale .4s ease; }
+
+.ctag.visible, .ch1.visible, .ch2.visible, .cbody.visible, .ccta.visible, .ccta-b.visible {
+  opacity: 1; translate: 0 0;
+}
+.hline.visible { opacity: 1; scale: 1 1; }
+
+/* ── responsive ── */
+@media (max-width: 56.25em) {
+  #hud { top: 1rem; right: 1rem; }
+  #scene_strip { display: none; }
+  #face_caption { bottom: 1rem; }
+  section { min-height: 150vh; align-items: flex-end; padding: 0 1.5rem 3.5rem; }
+  #s0 { min-height: 100vh; align-items: center; padding: 4rem 1.5rem; }
+  .ccard, .ccard.right { max-width: 100%; padding: 1.5rem 1.25rem; }
+  .cbody { line-height: 1.55; }
+  .crow { margin-block-start: 1.25rem; }
+}
+
 </style>
 </head>
 <body>
@@ -67,7 +354,6 @@
 <div class="orbs"><div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div><div class="orb o4"></div><div class="orb o5"></div></div>
 <div class="grid-bg"></div>
 
-<!-- NAV -->
 <nav id="main-nav">
   <a class="nav-logo" href="index.html">Selma<span>.</span></a>
   <ul class="nav-links">
@@ -78,133 +364,397 @@
   <a class="nav-cta" href="mailto:selmaomri05@gmail.com">Me contacter</a>
 </nav>
 
-<!-- HERO -->
-<div class="ap-hero">
-  <a class="proj-back" href="index.html">◀◀ Retour</a>
-  <div class="tag r" style="margin-top:24px">Portfolio complet</div>
-  <h1 class="ap-hero-title r d1">
-    Tous mes<br><span class="grad">projets</span>
-  </h1>
-  <p class="ap-hero-sub r d2">10 projets  design graphique, photographie, motion, UX/UI, audiovisuel et communication.</p>
+<!-- CUBE -->
+<div id="scene">
+  <div id="cube">
+    <div class="face" data-face="top"    data-i="0"><span class="face-ph">TOP</span></div>
+    <div class="face" data-face="front"  data-i="1"><span class="face-ph">FRONT</span></div>
+    <div class="face" data-face="right"  data-i="2"><span class="face-ph">RIGHT</span></div>
+    <div class="face" data-face="back"   data-i="3"><span class="face-ph">BACK</span></div>
+    <div class="face" data-face="left"   data-i="4"><span class="face-ph">LEFT</span></div>
+    <div class="face" data-face="bottom" data-i="5"><span class="face-ph">BOTTOM</span></div>
+  </div>
 </div>
 
-<!-- GRID -->
-<div class="ap-grid">
-
-  <!-- Featured big -->
-  <div class="apcard featured r r-scale" onclick="navigateTo('pouch.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="img/pouchposter.png" alt="POUCH" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Projet scolaire · Branding</p>
-      <p class="apcard-name">POUCH  Identité de marque <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <div class="apcard r r-scale d1" onclick="navigateTo('metamorph.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="métaphor/ban.jpg" alt="Métamorph" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Projet scolaire · Identité visuelle</p>
-      <p class="apcard-name">Métamorph <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <!-- Row 2 -->
-  <div class="apcard r r-scale" onclick="navigateTo('scbvg.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="img/match.png" alt="SCBVG" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Expérience pro · Communication</p>
-      <p class="apcard-name">Saint-Chamond Basket <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <div class="apcard featured r r-scale d1" onclick="navigateTo('photographie.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="photographie/concert/DSC04443.jpeg" alt="Photographie" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Photographie · Reportage</p>
-      <p class="apcard-name">Photographie <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <!-- Row 3 -->
-  <div class="apcard r r-scale" onclick="navigateTo('motion.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="img/bannière.gif" alt="Motion Design" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Motion · Animation</p>
-      <p class="apcard-name">Motion Design <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <div class="apcard r r-scale d1" onclick="navigateTo('audiovisuel.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="img/banniereaudiovisuel.jpeg" alt="Audiovisuel" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Production · Vidéo</p>
-      <p class="apcard-name">Audiovisuel <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <div class="apcard r r-scale d2" onclick="navigateTo('design.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="img/magazine.png" alt="Design Personnel" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Personnel · Design graphique</p>
-      <p class="apcard-name">Design Personnel <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <!-- Row 4 -->
-  <div class="apcard featured r r-scale" onclick="navigateTo('travelease.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="travel ease/mockupeasytravel.png" alt="Travel Ease" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Projet scolaire · UX/UI</p>
-      <p class="apcard-name">Travel Ease <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <div class="apcard r r-scale d1" onclick="navigateTo('mute.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="mute/mutemockup.png" alt="MUTE" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Projet scolaire · Branding</p>
-      <p class="apcard-name">MUTE <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
-  <div class="apcard r r-scale d2" onclick="navigateTo('pulse.html')">
-    <div class="apcard-img-wrap">
-      <img class="apcard-img" src="pulsefestival/festival.png" alt="Pulse Fest" loading="lazy">
-    </div>
-    <div class="apcard-body">
-      <p class="apcard-cat">Projet scolaire · Festival</p>
-      <p class="apcard-name">Pulse Fest <span class="apcard-arr">▶▶</span></p>
-    </div>
-  </div>
-
+<!-- HUD -->
+<div id="hud">
+  <div id="hud_pct">000%</div>
+  <div class="progress-bar"><div class="progress-fill" id="prog_fill"></div></div>
+  <div class="scene-label" id="scene_name">PORTFOLIO</div>
 </div>
 
-<footer>
-  <span>Selma Omri</span>
-  <span>Design Digital & Communication  2025</span>
-  <span>France</span>
-</footer>
+<div id="scene_strip"></div>
+
+<div id="face_caption">
+  <div id="face_caption_num">00</div>
+  <div id="face_caption_name">PORTFOLIO</div>
+</div>
+
+<!-- SCROLL -->
+<div id="scroll_container">
+
+  <section id="s0">
+    <div class="ccard">
+      <div class="ctag">Portfolio complet</div>
+      <h1 class="ch1">TOUS<br>MES<br>PROJETS</h1>
+      <p class="cbody">10 projets. Design graphique, photographie, motion, UX/UI, audiovisuel et communication. Scrolle pour explorer.</p>
+      <div class="crow">
+        <a class="ccta" href="#s1">Commencer <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s1">
+    <div class="ccard right">
+      <div class="hline"></div>
+      <div class="ctag">01 — Photographie · Reportage</div>
+      <h2 class="ch2">CONCERT<br>& SPORT</h2>
+      <p class="cbody">Reportage photo en concerts et événements sportifs. Capturer l'énergie, l'instant, l'émotion brute.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s0"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="photographie.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s2">
+    <div class="ccard">
+      <div class="hline"></div>
+      <div class="ctag">02 — Expérience pro · Com</div>
+      <h2 class="ch2">SAINT-<br>CHAMOND<br>BASKET</h2>
+      <p class="cbody">Communication visuelle pour un club de basketball pro. Affiches, réseaux sociaux, identité de match.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s1"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="scbvg.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s3">
+    <div class="ccard right">
+      <div class="hline"></div>
+      <div class="ctag">03 — Projet scolaire · Branding</div>
+      <h2 class="ch2">POUCH</h2>
+      <p class="cbody">Création d'une identité de marque complète. Logo, charte graphique, packaging, communication.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s2"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="pouch.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s4">
+    <div class="ccard">
+      <div class="hline"></div>
+      <div class="ctag">04 — Personnel · Graphisme</div>
+      <h2 class="ch2">DESIGN<br>& MUSIQUE</h2>
+      <p class="cbody">Affiches, posters, créations sans brief autour d'artistes qui m'inspirent. Mon terrain de jeu graphique.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s3"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="design.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s5">
+    <div class="ccard right">
+      <div class="hline"></div>
+      <div class="ctag">05 — Direction artistique</div>
+      <h2 class="ch2">MÉTA-<br>MORPH</h2>
+      <p class="cbody">Identité visuelle autour de la transformation. Direction artistique, typographie, mise en scène.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s4"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="metamorph.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s6">
+    <div class="ccard">
+      <div class="hline"></div>
+      <div class="ctag">06 — Production · Vidéo</div>
+      <h2 class="ch2">AUDIO-<br>VISUEL</h2>
+      <p class="cbody">Production et montage vidéo. Captation d'images, narration visuelle, post-production.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s5"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="audiovisuel.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s7">
+    <div class="ccard right">
+      <div class="hline"></div>
+      <div class="ctag">07 — Motion · Animation</div>
+      <h2 class="ch2">MOTION<br>DESIGN</h2>
+      <p class="cbody">Animations graphiques et motion design. Donner vie aux visuels avec du mouvement et du rythme.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s6"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="motion.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s8">
+    <div class="ccard">
+      <div class="hline"></div>
+      <div class="ctag">08 — Projet scolaire · Branding</div>
+      <h2 class="ch2">MUTE</h2>
+      <p class="cbody">Branding d'une marque sonore silencieuse. Paradoxe visuel, identité forte et cohérente.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s7"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="mute.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s9">
+    <div class="ccard right">
+      <div class="hline"></div>
+      <div class="ctag">09 — Projet scolaire · UX/UI</div>
+      <h2 class="ch2">TRAVEL<br>EASE</h2>
+      <p class="cbody">Application de voyage pensée pour faciliter les déplacements. UX research, wireframes, prototype.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s8"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="travelease.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section id="s10">
+    <div class="ccard">
+      <div class="hline"></div>
+      <div class="ctag">10 — Projet scolaire · Festival</div>
+      <h2 class="ch2">PULSE<br>FEST</h2>
+      <p class="cbody">Identité visuelle d'un festival fictif. Branding complet, affiches et scénographie.</p>
+      <div class="crow">
+        <a class="ccta-b" href="#s9"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M11 6H1M6 11L1 6l5-5"/></svg> Retour</a>
+        <a class="ccta" href="pulse.html">Voir le projet <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 6h10M6 1l5 5-5 5"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+</div>
 
 <script src="shared.js"></script>
+<script>
+const IMAGE_SRCS = [
+  "photographie/concert/48.jpg",
+  "photographie/concert/DSC04443.jpeg",
+  "img/match.png",
+  "img/pouchposter.png",
+  "img bannière/magazine.png",
+  "métaphor/ban.jpg",
+  "img/banniereaudiovisuel.jpeg",
+  "img bannière/motiondesign.png",
+  "mute/mutemockup.png",
+  "travel ease/mockupeasytravel.png",
+  "img bannière/festival.png"
+];
+
+const FACE_NAMES = [
+  "PORTFOLIO",
+  "PHOTOGRAPHIE",
+  "SAINT-CHAMOND",
+  "POUCH",
+  "DESIGN",
+  "MÉTAMORPH",
+  "AUDIOVISUEL",
+  "MOTION DESIGN",
+  "MUTE",
+  "TRAVEL EASE",
+  "PULSE FEST"
+];
+
+const SWAP_RADIUS = 3;
+const N = IMAGE_SRCS.length; // 11
+
+function faceAtStop(i) {
+  if (i < 6) return i;
+  return 1 + ((i - 2) % 4);
+}
+
+function buildStops(n) {
+  const base = [
+    { rx: 90,  ry: 0 },
+    { rx: 0,   ry: 0 },
+    { rx: 0,   ry: -90 },
+    { rx: 0,   ry: -180 },
+    { rx: 0,   ry: -270 },
+    { rx: -90, ry: -360 }
+  ];
+  const out = base.slice(0, Math.min(n, 6));
+  for (let i = 6; i < n; i++) out.push({ rx: 0, ry: -360 - (i - 6) * 90 });
+  return out;
+}
+
+const STOPS = buildStops(N);
+const stopIndex = (s) => Math.min(N - 1, Math.floor(s * (N - 1)));
+
+const dom = {
+  cube:        document.getElementById("cube"),
+  faces:       [...document.querySelectorAll(".face")],
+  scrollEl:    document.getElementById("scroll_container"),
+  strip:       document.getElementById("scene_strip"),
+  hudPct:      document.getElementById("hud_pct"),
+  progFill:    document.getElementById("prog_fill"),
+  sceneName:   document.getElementById("scene_name"),
+  captionNum:  document.getElementById("face_caption_num"),
+  captionName: document.getElementById("face_caption_name")
+};
+
+// build nav dots
+dom.strip.innerHTML = "";
+for (let i = 0; i < N; i++) {
+  const a = document.createElement("a");
+  a.href = `#s${i}`;
+  a.className = "scene-dot" + (i === 0 ? " active" : "");
+  dom.strip.appendChild(a);
+}
+
+const sceneDots = [...document.querySelectorAll(".scene-dot")];
+const sections  = [...document.querySelectorAll("#scroll_container section")];
+const faceImgIdx = new Array(6).fill(-1);
+let currentStop = -1;
+const imagePromises = new Map();
+
+const preloadImage = (src) => {
+  if (imagePromises.has(src)) return imagePromises.get(src);
+  const p = (async () => {
+    const img = new Image();
+    img.src = src;
+    await img.decode().catch(() => {});
+    return img;
+  })();
+  imagePromises.set(src, p);
+  return p;
+};
+
+IMAGE_SRCS.forEach(src => preloadImage(src));
+
+async function setFaceImage(faceIdx, imgIdx, force = false) {
+  if (!force && faceIdx === faceAtStop(currentStop)) return;
+  if (!force && faceImgIdx[faceIdx] === imgIdx) return;
+  faceImgIdx[faceIdx] = imgIdx;
+  const src  = IMAGE_SRCS[imgIdx];
+  const face = dom.faces[faceIdx];
+  await preloadImage(src);
+  if (faceImgIdx[faceIdx] !== imgIdx) return;
+  let img = face.querySelector("img");
+  if (!img) { img = new Image(); face.appendChild(img); }
+  img.alt = FACE_NAMES[imgIdx] ?? "";
+  img.src = src;
+}
+
+for (let i = 0; i < Math.min(N, 6); i++) setFaceImage(i, i, true);
+
+function checkImageSwaps(smooth) {
+  const base = stopIndex(smooth);
+  for (let offset = -SWAP_RADIUS; offset <= SWAP_RADIUS; offset++) {
+    if (offset === 0) continue;
+    const si = base + offset;
+    if (si < 0 || si >= N) continue;
+    setFaceImage(faceAtStop(si), si);
+  }
+}
+
+let lastFaceIdx = -1;
+
+const updateHUD = (s) => {
+  const p  = Math.round(s * 100);
+  const si = sectionIndexFromScroll(scrollY);
+  currentStop = si;
+  dom.hudPct.textContent    = String(p).padStart(3, "0") + "%";
+  dom.progFill.style.width  = `${p}%`;
+  if (si !== lastFaceIdx) {
+    lastFaceIdx = si;
+    const name = FACE_NAMES[si] ?? "";
+    dom.sceneName.textContent   = name;
+    dom.captionNum.textContent  = String(si + 1).padStart(2, "0");
+    dom.captionName.textContent = name;
+    sceneDots.forEach((d, i) => d.classList.toggle("active", i === si));
+  }
+};
+
+const easeIO = (t) => t < 0.5 ? 2*t*t : -1 + (4 - 2*t)*t;
+
+const setCubeTransform = (s) => {
+  if (N < 2 || STOPS.length < 2) return;
+  const t = s * (N - 1);
+  const i = Math.min(Math.floor(t), N - 2);
+  const f = easeIO(t - i);
+  const a = STOPS[i], b = STOPS[i + 1];
+  dom.cube.style.transform =
+    `rotateX(${a.rx + (b.rx - a.rx) * f}deg) rotateY(${a.ry + (b.ry - a.ry) * f}deg)`;
+};
+
+let sectionTops = [];
+const buildSectionTops = () => {
+  sectionTops = sections.map(s => s.getBoundingClientRect().top + window.scrollY);
+};
+
+const sectionIndexFromScroll = (y) => {
+  const mid = y + innerHeight * 0.5;
+  let idx = 0;
+  for (let i = 0; i < sectionTops.length; i++) if (mid >= sectionTops[i]) idx = i;
+  return Math.min(idx, N - 1);
+};
+
+let maxScroll = 1, lastScrollH = 0, lastVH = 0;
+
+const resize = () => {
+  const h = document.documentElement.scrollHeight, vh = innerHeight;
+  if (h === lastScrollH && vh === lastVH) return;
+  lastScrollH = h; lastVH = vh;
+  maxScroll = Math.max(1, h - vh);
+  buildSectionTops();
+};
+resize();
+
+let tgt = 0, smooth = 0;
+
+window.addEventListener("resize", () => {
+  resize(); tgt = maxScroll > 0 ? scrollY / maxScroll : 0; smooth = tgt;
+});
+
+window.addEventListener("scroll", () => {
+  tgt = Math.max(0, Math.min(1, maxScroll > 0 ? scrollY / maxScroll : 0));
+}, { passive: true });
+
+// reveal
+const revealEls = [...document.querySelectorAll(".ctag,.ch1,.ch2,.cbody,.ccta,.ccta-b,.hline")];
+const io = new IntersectionObserver(
+  entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("visible"); io.unobserve(e.target); } }),
+  { threshold: 0.1 }
+);
+revealEls.forEach(el => io.observe(el));
+
+let lastNow = performance.now();
+
+const frame = (now) => {
+  requestAnimationFrame(frame);
+  if (document.hidden) { lastNow = now; return; }
+  const dt = Math.min((now - lastNow) / 1000, 0.05);
+  lastNow = now;
+  smooth += (tgt - smooth) * (1 - Math.exp(-dt * 12));
+  smooth = Math.max(0, Math.min(1, smooth));
+  updateHUD(smooth);
+  checkImageSwaps(smooth);
+  setCubeTransform(smooth);
+};
+requestAnimationFrame(frame);
+
+// anchor clicks → native smooth scroll
+document.addEventListener("click", (e) => {
+  const a = e.target.closest('a[href^="#s"]');
+  if (!a) return;
+  const target = document.querySelector(a.getAttribute("href"));
+  if (!target) return;
+  e.preventDefault();
+  const idx = sections.indexOf(target);
+  const y = idx >= 0 ? sectionTops[idx] : target.getBoundingClientRect().top + window.scrollY;
+  window.scrollTo({ top: Math.max(0, y), behavior: "smooth" });
+});
+</script>
 </body>
 </html>
-
-

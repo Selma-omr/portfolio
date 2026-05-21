@@ -9,10 +9,10 @@
 <link rel="stylesheet" href="styles.css">
 <style>
 .design-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}
-.design-img{width:100%;aspect-ratio:3/4;object-fit:contain;background:#07050d;border-radius:14px;border:1px solid var(--gborder);display:block;transition:transform .5s var(--ease),box-shadow .4s;cursor:pointer}
-.design-img:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(249,23,79,.2);z-index:1;position:relative}
+.design-img{width:100%;aspect-ratio:3/4;object-fit:contain;background:transparent;border-radius:14px;border:1px solid var(--gborder);display:block;cursor:zoom-in;transition:transform .5s var(--ease),box-shadow .4s}
+.design-img:hover{transform:scale(1.04);box-shadow:0 0 30px rgba(249,23,79,.2)}
 .ticket-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-bottom:14px}
-.ticket-img{width:100%;object-fit:contain;border-radius:14px;border:1px solid var(--gborder);background:#0a080f;display:block;transition:transform .5s var(--ease),box-shadow .4s;cursor:pointer}
+.ticket-img{width:100%;object-fit:contain;background:transparent;border-radius:14px;border:1px solid var(--gborder);display:block;cursor:zoom-in;transition:transform .5s var(--ease),box-shadow .4s}
 .ticket-img:hover{transform:scale(1.03);box-shadow:0 0 30px rgba(249,23,79,.2)}
 @media(max-width:900px){.design-grid{grid-template-columns:repeat(2,1fr)}.ticket-grid{grid-template-columns:1fr}}
 </style>
@@ -37,7 +37,7 @@
 <div class="proj-page">
 
   <div class="proj-hero">
-    <div class="proj-hero-bg" style="background-image:url('design/billiebrutalism.png')"></div>
+    <div class="proj-hero-bg" style="background-image:url('img bannière/magazine.png')"></div>
     <div class="proj-hero-overlay"></div>
     <a class="proj-back" href="index.html">◀◀ Retour</a>
     <div class="proj-meta">
@@ -67,31 +67,43 @@
       </div>
     </div>
 
-    <div class="design-grid r">
-      <img class="design-img" src="design/billiebrutalism.png" alt="Billie Eilish brutalism" loading="lazy">
-      <img class="design-img" src="design/clairo.jpg" alt="Clairo" loading="lazy">
-      <img class="design-img" src="design/gracieabrams.png" alt="Gracie Abrams" loading="lazy">
-      <img class="design-img" src="design/dochiiagain.png" alt="Dochi" loading="lazy">
-      <img class="design-img" src="design/dojacat2.png" alt="Doja Cat" loading="lazy">
-      <img class="design-img" src="design/jennie.png" alt="Jennie" loading="lazy">
-      <img class="design-img" src="design/Tatemcrea.png" alt="Tate McRae" loading="lazy">
-      <img class="design-img" src="design/THEODORAbrutalism.png" alt="Theodora brutalism" loading="lazy">
-      <img class="design-img" src="design/zaralarsson.png" alt="Zara Larsson" loading="lazy">
-      <img class="design-img" src="design/Plan de travail 1-3.png" alt="Design" loading="lazy">
-      <img class="design-img" src="design/freeflop.png" alt="Design" loading="lazy" style="grid-column:span 2;aspect-ratio:3/2">
+    <div class="gal-rows r">
+      <div class="gal-row">
+        <img class="design-img" style="--r:0.71" src="design/billiebrutalism.png" alt="Billie Eilish brutalism" loading="lazy">
+        <img class="design-img" style="--r:0.72" src="design/clairo.jpg" alt="Clairo" loading="lazy">
+        <img class="design-img" style="--r:0.75" src="design/scaabposter.png" alt="SCAAB" loading="lazy">
+        <img class="design-img" style="--r:0.80" src="design/dochiiagain.png" alt="Dochi" loading="lazy">
+      </div>
+      <div class="gal-row">
+        <img class="design-img" style="--r:0.71" src="design/dojacat2.png" alt="Doja Cat" loading="lazy">
+        <img class="design-img" style="--r:0.71" src="design/jennie.png" alt="Jennie" loading="lazy">
+        <img class="design-img" style="--r:0.71" src="design/Tatemcrea.png" alt="Tate McRae" loading="lazy">
+        <img class="design-img" style="--r:0.71" src="design/THEODORAbrutalism.png" alt="Theodora brutalism" loading="lazy">
+      </div>
+      <div class="gal-row">
+        <img class="design-img" style="--r:0.80" src="design/zaralarsson.png" alt="Zara Larsson" loading="lazy">
+        <img class="design-img" style="--r:0.70" src="design/Plan de travail 1-3.png" alt="Design" loading="lazy">
+        <img class="design-img" style="--r:1.50" src="design/freeflop.png" alt="Design" loading="lazy">
+      </div>
     </div>
 
     <div class="proj-section r">
       <h2 class="proj-section-title">Tickets <span class="grad">concerts</span></h2>
     </div>
 
-    <div class="ticket-grid r">
-      <img class="ticket-img" src="design/ticketbeyonce_.jpg" alt="Ticket Beyoncé" loading="lazy">
-      <img class="ticket-img" src="design/tickettaylor swift n1.jpg" alt="Ticket Taylor Swift" loading="lazy">
-      <img class="ticket-img" src="design/ticketgracie abrams.png" alt="Ticket Gracie Abrams" loading="lazy">
-      <img class="ticket-img" src="design/ticketFLO.png" alt="Ticket FLO" loading="lazy">
-      <img class="ticket-img" src="design/ticketdualipa.png" alt="Ticket Dua Lipa" loading="lazy">
-      <img class="ticket-img" src="design/tickethamza.png" alt="Ticket Hamza" loading="lazy">
+    <div class="gal-rows r">
+      <div class="gal-row">
+        <img class="ticket-img" style="--r:2.69" src="design/ticketbeyonce_.jpg" alt="Ticket Beyoncé" loading="lazy">
+        <img class="ticket-img" style="--r:2.67" src="design/tickettaylor swift n1.jpg" alt="Ticket Taylor Swift" loading="lazy">
+      </div>
+      <div class="gal-row">
+        <img class="ticket-img" style="--r:2.67" src="design/ticketgracie abrams.png" alt="Ticket Gracie Abrams" loading="lazy">
+        <img class="ticket-img" style="--r:2.67" src="design/ticketFLO.png" alt="Ticket FLO" loading="lazy">
+      </div>
+      <div class="gal-row">
+        <img class="ticket-img" style="--r:2.67" src="design/ticketdualipa.png" alt="Ticket Dua Lipa" loading="lazy">
+        <img class="ticket-img" style="--r:2.67" src="design/tickethamza.png" alt="Ticket Hamza" loading="lazy">
+      </div>
     </div>
 
   </div>

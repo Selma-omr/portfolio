@@ -14,21 +14,24 @@
 .gal-label-text{font-size:9px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--p3);white-space:nowrap}
 .gal-count{font-size:9px;font-weight:600;letter-spacing:.1em;color:var(--muted)}
 
-/* Layout masonry  chaque photo à ses proportions naturelles */
-.gal-grid{columns:3;column-gap:10px}
-.gal-grid.wide{columns:4;column-gap:10px}
+.gal-rows{display:flex;flex-direction:column;gap:8px}
+.gal-row{display:flex;gap:8px}
+.gal-row .gal-img{flex:var(--r);aspect-ratio:var(--r);width:auto;height:auto;min-width:0}
+
 .gal-img{
-  width:100%;height:auto;display:block;
-  border-radius:14px;border:1px solid var(--gborder);
-  margin-bottom:10px;break-inside:avoid;
-  transition:transform .5s var(--ease),box-shadow .4s;
-  cursor:pointer
+  width:100%;display:block;
+  border-radius:10px;border:1px solid var(--gborder);
+  transition:transform .5s var(--ease),box-shadow .4s;cursor:pointer
 }
 .gal-img:hover{transform:scale(1.03);box-shadow:0 0 30px rgba(249,23,79,.25);position:relative;z-index:1}
 
-@media(max-width:900px){
-  .gal-grid{columns:2}
-  .gal-grid.wide{columns:2}
+@media(max-width:768px){
+  .gal-row{flex-wrap:wrap}
+  .gal-row .gal-img{flex:0 0 calc(50% - 4px)!important}
+  .gal-row .gal-img:last-child:nth-child(odd){flex:0 0 100%!important}
+}
+@media(max-width:480px){
+  .gal-row .gal-img,.gal-row .gal-img:last-child:nth-child(odd){flex:0 0 100%!important}
 }
 </style>
 </head>
@@ -58,7 +61,7 @@
     <div class="proj-hero-overlay"></div>
     <a class="proj-back" href="index.html">◀◀ Retour</a>
     <div class="proj-meta">
-      <p class="proj-cat-tag r">Photographie · Concert · Sport · Ville</p>
+      <p class="proj-cat-tag r">Photographie · Concert · Sport · Portrait</p>
       <h1 class="proj-title r d1"><span>Photo-<br>graphie</span></h1>
       <p class="proj-subtitle r d2">Trois séries, trois contextes, une même intention : capturer ce qui se passe vraiment.</p>
     </div>
@@ -67,7 +70,7 @@
   <!-- INFO BAR -->
   <div class="proj-info-bar">
     <div class="proj-info-item r"><div class="pil">Type</div><div class="piv">Reportage & événementiel</div></div>
-    <div class="proj-info-item r d1"><div class="pil">Catégories</div><div class="piv">Concert · Sport · Ville</div></div>
+    <div class="proj-info-item r d1"><div class="pil">Catégories</div><div class="piv">Concert · Sport · Portrait</div></div>
     <div class="proj-info-item r d2"><div class="pil">Matériel</div><div class="piv">Sony Alpha</div></div>
     <div class="proj-info-item r d3"><div class="pil">Période</div><div class="piv">2023  2025</div></div>
   </div>
@@ -91,20 +94,36 @@
     <div class="gal-section r">
       <div class="gal-label">
         <span class="gal-label-text">Concert</span>
-        <span class="gal-count">10 photos</span>
+        <span class="gal-count">16 photos</span>
         <div class="gal-label-line"></div>
       </div>
-      <div class="gal-grid">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04147.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04260.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04281.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04404.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04431.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04443.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04447.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04465.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/DSC04521.jpeg" alt="Concert" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/concert/IMG_2060.jpeg" alt="Concert" loading="lazy">
+      <div class="gal-rows">
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.60" src="photographie/concert/DSC04147.jpeg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/concert/DSC04260.jpeg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/concert/DSC04281.jpeg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/concert/DSC04404.jpeg" alt="Concert" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:1.50" src="photographie/concert/DSC04431.jpeg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/concert/DSC04443.jpeg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.76" src="photographie/concert/DSC04447.jpeg" alt="Concert" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.67" src="photographie/concert/DSC04465.jpeg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/concert/DSC04521.jpeg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:1.78" src="photographie/concert/IMG_2060.jpeg" alt="Concert" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.76" src="photographie/concert/1.jpg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.76" src="photographie/concert/33.jpg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.81" src="photographie/concert/48.jpg" alt="Concert" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.77" src="photographie/concert/69.jpg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.79" src="photographie/concert/87.jpg" alt="Concert" loading="lazy">
+          <img class="gal-img" style="--r:0.76" src="photographie/concert/89.jpg" alt="Concert" loading="lazy">
+        </div>
       </div>
     </div>
 
@@ -115,41 +134,60 @@
         <span class="gal-count">14 photos</span>
         <div class="gal-label-line"></div>
       </div>
-      <div class="gal-grid wide">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_2765.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_2785.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_2788.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_2815.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_2890.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_2898.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_3111.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_3204.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_3356.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_3440.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_3466.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_3582.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_3599.jpg" alt="Sport SCAAB" loading="lazy">
-        <img class="gal-img" src="photographie/sport - scaab/DSC_3673.jpg" alt="Sport SCAAB" loading="lazy">
+      <div class="gal-rows">
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_2765.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_2785.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_2788.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_2815.jpg" alt="Sport SCAAB" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_2890.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.63" src="photographie/sport - scaab/DSC_2898.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_3111.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_3204.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_3356.jpg" alt="Sport SCAAB" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_3440.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.65" src="photographie/sport - scaab/DSC_3466.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_3582.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/sport - scaab/DSC_3599.jpg" alt="Sport SCAAB" loading="lazy">
+          <img class="gal-img" style="--r:0.73" src="photographie/sport - scaab/DSC_3673.jpg" alt="Sport SCAAB" loading="lazy">
+        </div>
       </div>
     </div>
 
-    <!-- VILLE -->
+    <!-- JUJU -->
     <div class="gal-section r">
       <div class="gal-label">
-        <span class="gal-label-text">Ville</span>
-        <span class="gal-count">9 photos</span>
+        <span class="gal-label-text">Portrait</span>
+        <span class="gal-count">14 photos</span>
         <div class="gal-label-line"></div>
       </div>
-      <div class="gal-grid">
-        <img class="gal-img gal-feat" src="photographie/ville/DSC01869.jpeg" alt="Ville" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/ville/DSC02036.jpeg" alt="Ville" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/ville/DSC02512.jpeg" alt="Ville" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/ville/DSC02516.jpeg" alt="Ville" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/ville/DSC02576.jpeg" alt="Ville" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/ville/DSC02994.jpeg" alt="Ville" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/ville/DSC03003.jpeg" alt="Ville" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/ville/DSC03162.jpeg" alt="Ville" loading="lazy">
-        <img class="gal-img gal-feat" src="photographie/ville/IMG_1295.jpeg" alt="Ville" loading="lazy">
+      <div class="gal-rows">
+        <div class="gal-row">
+          <img class="gal-img" style="--r:1.39" src="photographie/juju/DSC_4911.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.71" src="photographie/juju/DSC_5523.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/juju/flou.png" alt="Portrait" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.71" src="photographie/juju/ju16.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.71" src="photographie/juju/ju19.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.71" src="photographie/juju/ju2.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.71" src="photographie/juju/ju6.png" alt="Portrait" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.71" src="photographie/juju/ju8.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:1.39" src="photographie/juju/juju13.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/juju/juju16.png" alt="Portrait" loading="lazy">
+        </div>
+        <div class="gal-row">
+          <img class="gal-img" style="--r:0.67" src="photographie/juju/juju18.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.71" src="photographie/juju/juju19.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/juju/juju3.png" alt="Portrait" loading="lazy">
+          <img class="gal-img" style="--r:0.67" src="photographie/juju/juju6.png" alt="Portrait" loading="lazy">
+        </div>
       </div>
     </div>
 
